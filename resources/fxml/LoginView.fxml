@@ -1,14 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXPasswordField?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="easvbar.gui.controller.LoginViewController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="364.0" prefWidth="490.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easvbar.gui.controller.LoginViewController">
+   <children>
+      <MFXPasswordField layoutX="105.0" layoutY="192.0" prefHeight="49.0" prefWidth="280.0" />
+      <MFXTextField layoutX="105.0" layoutY="98.0" prefHeight="49.0" prefWidth="280.0" />
+      <Text layoutX="105.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Text>
+      <Text layoutX="105.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" wrappingWidth="229.13671875">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Text>
+      <Hyperlink layoutX="283.0" layoutY="252.0" text="Forgot Password?" />
+      <MFXButton buttonType="RAISED" depthLevel="LEVEL1" layoutX="315.0" layoutY="294.0" text="Login">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </MFXButton>
+   </children>
 </AnchorPane>

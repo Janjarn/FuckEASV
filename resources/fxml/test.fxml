@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXListView?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane prefHeight="681.0" prefWidth="1202.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easvbar.gui.controller.HomepageAdminController">
+   <children>
+      <GridPane gridLinesVisible="true">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="597.0" minHeight="10.0" prefHeight="556.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="334.0" minHeight="10.0" prefHeight="123.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <GridPane GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="273.0" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="537.0" minHeight="10.0" prefHeight="501.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <GridPane gridLinesVisible="true" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                    <columnConstraints>
+                      <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="375.0" minWidth="0.0" prefWidth="109.0" />
+                      <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="759.0" minWidth="10.0" prefWidth="706.0" />
+                        <ColumnConstraints fillWidth="false" maxWidth="323.0" minWidth="10.0" prefWidth="323.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <MFXTextField prefHeight="49.0" prefWidth="3333.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </GridPane.margin>
+                        </MFXTextField>
+                        <AnchorPane GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </GridPane.margin>
+                           <children>
+                              <MFXButton layoutX="216.0" layoutY="5.0" prefHeight="45.0" prefWidth="97.0" />
+                              <MFXButton layoutY="5.0" prefHeight="45.0" prefWidth="97.0" />
+                              <MFXButton layoutX="108.0" layoutY="5.0" prefHeight="45.0" prefWidth="97.0" />
+                           </children>
+                        </AnchorPane>
+                        <MFXButton prefHeight="45.0" prefWidth="228.0" />
+                     </children>
+                  </GridPane>
+                  <GridPane GridPane.rowIndex="1">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <MFXListView prefHeight="773.0" prefWidth="3449.0" GridPane.columnIndex="1">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </GridPane.margin>
+                        </MFXListView>
+                        <MFXTextField alignment="TOP_LEFT" prefHeight="754.0" prefWidth="3445.0">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </GridPane.margin>
+                        </MFXTextField>
+                     </children>
+                  </GridPane>
+               </children>
+            </GridPane>
+            <MFXListView prefHeight="894.0" prefWidth="3441.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </MFXListView>
+         </children>
+      </GridPane>
+   </children>
+</StackPane>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easvbar.gui.controller.KoordinatorPageController">
+   <children>
+      <MFXButton fx:id="btnCreateEvent" buttonType="RAISED" depthLevel="LEVEL5" layoutX="61.0" layoutY="14.0" onAction="#handleCreateEventWindow" prefHeight="78.0" prefWidth="110.0" text="Create Event" />
+      <MFXButton fx:id="btnLogout" buttonType="RAISED" depthLevel="LEVEL5" layoutX="476.0" layoutY="14.0" onAction="#handleLogout" prefHeight="78.0" prefWidth="110.0" text="Logout" />
+   </children>
+</AnchorPane>

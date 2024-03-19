@@ -3,16 +3,16 @@ package easvbar.be;
 public class User {
     private int id;
     private String name;
-    private String Login;
-    private String Password;
-    private boolean IsSysAdmin;
+    private String login;
+    private String password;
+    private boolean isSysAdmin;
 
     private User(int id, String name, String login, String password, boolean isSysAdmin) {
         this.id = id;
         this.name = name;
-        Login = login;
-        Password = password;
-        IsSysAdmin = isSysAdmin;
+        this.login = login;
+        this.password = password;
+        this.isSysAdmin = isSysAdmin;
     }
 
     private int getId() {
@@ -32,26 +32,26 @@ public class User {
     }
 
     private String getLogin() {
-        return Login;
+        return login;
     }
 
     private void setLogin(String login) {
-        Login = login;
+        this.login = login;
     }
 
     private String getPassword() {
-        return Password;
+        return password;
     }
 
     private void setPassword(String password) {
-        Password = password;
+        this.password = password;
     }
 
     private boolean isSysAdmin() {
-        return IsSysAdmin;
+        return isSysAdmin;
     }
 
     private void setSysAdmin(boolean sysAdmin) {
-        IsSysAdmin = sysAdmin;
+        isSysAdmin = sysAdmin;
     }
 }

@@ -12,8 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/MainCss.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easvbar.gui.controller.KoordinatorPageController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/MainCss.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easvbar.gui.controller.KoordinatorPageController">
    <top>
       <VBox prefHeight="117.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
@@ -71,8 +70,11 @@
             <TableColumn prefWidth="75.0" text="C2" />
          </columns>
          <BorderPane.margin>
-            <Insets left="190.0" right="40.0" />
+            <Insets left="190.0" right="40.0" top="10.0" />
          </BorderPane.margin>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
       </TableView>
    </center>
 </BorderPane>

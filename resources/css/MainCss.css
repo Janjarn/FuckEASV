@@ -1,34 +1,14 @@
-.root {
-    -fx-background-color: #141414;
-}
+/* MainCss.css */
 
-.button {
-    -fx-background-color: #e50914;
-    -fx-text-fill: white;
+/* Customize button colors with gold gradient */
+.mfx-button {
+    -fx-background-color: linear-gradient(to bottom, #ffd700, #ffcc00); /* Gold gradient */
+    -fx-text-fill: black;
     -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-padding: 10px 20px;
-    -fx-background-radius: 5px;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0.0, 0, 0);
 }
 
-.button:hover {
-    -fx-background-color: #f44336;
+/* Dark blue to dark shade of blue gradient background for all Backgrounds */
+.backGround {
+    -fx-background-color: linear-gradient(to bottom, #000080, #000033); /* Dark blue to dark shade of blue gradient */
 }
 
-.button:pressed {
-    -fx-background-color: #d32f2f;
-}
-
-.list-view {
-    -fx-background-color: #333;
-    -fx-text-fill: white;
-    -fx-font-size: 14px;
-    -fx-padding: 10px 20px;
-    -fx-background-radius: 5px;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 5, 0.0, 0, 0);
-}
-
-.list-view:hover {
-    -fx-background-color: #444;
-}

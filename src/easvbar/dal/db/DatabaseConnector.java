@@ -13,10 +13,10 @@ public class DatabaseConnector {
     public DatabaseConnector() {
 
         dataSource = new SQLServerDataSource();
-        dataSource.setServerName("");
-        dataSource.setDatabaseName("");
-        dataSource.setUser("");
-        dataSource.setPassword("");
+        dataSource.setServerName("10.176.111.34");
+        dataSource.setDatabaseName("FuckEASVBar");
+        dataSource.setUser("CSe2023a_e_10");
+        dataSource.setPassword("CSe2023aE10#23");
         dataSource.setTrustServerCertificate(true);
     }
     public Connection getConnection() throws SQLServerException

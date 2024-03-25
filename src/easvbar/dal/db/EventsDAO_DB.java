@@ -1,13 +1,14 @@
 package easvbar.dal.db;
 
 import easvbar.be.Event;
+import easvbar.dal.Interface.EventI;
 
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EventsDAO_DB {
+public class EventsDAO_DB implements EventI {
     private DatabaseConnector databaseConnector;
 
     public EventsDAO_DB() throws IOException {

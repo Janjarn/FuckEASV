@@ -12,18 +12,16 @@ public class EventManager {
     private EventSearcher eventSearcher = new EventSearcher();
     private EventI eventDAO;
 
-
-    public List<Event> getAllEvents(){
+    public EventManager() throws IOException {
+        eventDAO = new EventsDAO_DB();
+    }
+    public List<Event> getAllEvents() throws Exception {
         return eventDAO.getAllEvents();
     }
-    public Event createNewEvent (Event newEvent){
+    public Event createEvent (Event newEvent) throws Exception {
         return eventDAO.createEvent(newEvent);
     }
-    public void deleteEvent(Event event){
+    public void deleteEvent(Event event) throws Exception {
         eventDAO.deleteEvent(event);
     }
-
-
-
-
 }

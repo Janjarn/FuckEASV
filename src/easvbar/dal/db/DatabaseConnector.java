@@ -3,20 +3,28 @@ package easvbar.dal.db;
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class DatabaseConnector {
 
+    private static final String PROP_FILE = "config/config.settings";
     private SQLServerDataSource dataSource;
 
-    public DatabaseConnector() {
+    public DatabaseConnector() throws IOException {
+        Properties databaseProperties = new Properties();
+        databaseProperties.load(new FileInputStream(new File(PROP_FILE)));
 
         dataSource = new SQLServerDataSource();
-        dataSource.setServerName("10.176.111.34");
-        dataSource.setDatabaseName("FuckEASVBar");
-        dataSource.setUser("CSe2023a_e_10");
-        dataSource.setPassword("CSe2023aE10#23");
+        dataSource.setServerName(databaseProperties.getProperty("Server"));
+        dataSource.setDatabaseName(databaseProperties.getProperty("Database"));
+        dataSource.setUser(databaseProperties.getProperty("User"));
+        dataSource.setPassword(databaseProperties.getProperty("Password"));
+        dataSource.setPortNumber(1433);
         dataSource.setTrustServerCertificate(true);
     }
     public Connection getConnection() throws SQLServerException
@@ -24,14 +32,9 @@ public class DatabaseConnector {
         return dataSource.getConnection();
     }
 
-//Test if there is an open connection.
-
-    public static void main(String[] args) throws SQLException
-    {
+    public static void main(String[] args) throws SQLException, IOException {
         DatabaseConnector databaseConnector = new DatabaseConnector();
-
-        try (Connection connection = databaseConnector.getConnection())
-        {
+        try (Connection connection = databaseConnector.getConnection()) {
             System.out.println("Is it open? " + !connection.isClosed());
         }
     }

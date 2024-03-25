@@ -1,8 +1,12 @@
 package easvbar.gui.controller;
 
+import easvbar.be.Event;
+import easvbar.bll.EventManager;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXListView;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +16,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 
 public class HomepageAdminController {
     @FXML
@@ -28,6 +33,32 @@ public class HomepageAdminController {
     private MFXListView listViewFeaturedEvent;
     @FXML
     private MFXListView listViewUpcomingEvents;
+
+    private EventManager eventManager = new EventManager();
+
+    public HomepageAdminController() throws IOException {
+    }
+
+    public void setUp(){
+        try {
+            // Get all events
+            List<Event> allEvents = eventManager.getAllEvents();
+
+            // Decide which events are featured (for demonstration, let's just use the first event)
+            ObservableList<Event> featuredEvents = FXCollections.observableArrayList();
+            if (!allEvents.isEmpty()) {
+                featuredEvents.add(allEvents.get(0));
+            }
+            listViewFeaturedEvent.setItems(featuredEvents);
+
+            // For upcoming events, let's display all events except the featured one
+            ObservableList<Event> upcomingEvents = FXCollections.observableArrayList(allEvents);
+            upcomingEvents.remove(0); // Remove the featured event
+            listViewUpcomingEvents.setItems(upcomingEvents);
+        } catch (Exception e) {
+            e.printStackTrace(); // Handle exception appropriately
+        }
+    }
     @FXML
     private void handleLogo(ActionEvent actionEvent) {
     }

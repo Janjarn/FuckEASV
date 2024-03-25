@@ -33,6 +33,20 @@ public class EventMakerModel {
         getObservableEvents().addAll(eventManager.getAllEvents());
     }
 
+    public void updateEvent(Event event) throws Exception {
+        Event selectedEvent = new Event();
+        selectedEvent.setId(event.getId());
+        selectedEvent.setEventEnd(event.getEventEnd());
+        selectedEvent.setEventStart(event.getEventStart());
+        selectedEvent.setDate(event.getDate());
+        selectedEvent.setCreatedBy(event.getCreatedBy());
+        selectedEvent.setLocation(event.getLocation());
+        selectedEvent.setName(event.getName());
+        selectedEvent.setEventImage(event.getEventImage());
+
+        eventManager.updateEvent(event);
+    }
+
     public Event getSelectedEvent(){return selectedEvent;}
 
     public void setSelectedEvent(Event selectedEvent) {

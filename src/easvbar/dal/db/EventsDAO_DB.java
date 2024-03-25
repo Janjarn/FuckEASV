@@ -51,7 +51,7 @@ public class EventsDAO_DB implements EventI {
 
     public Event createEvent(Event event) throws Exception {
 
-        String sql = "INSERT INTO FuckEASVBar.dbo.Event (EventName, EventTimeStart, EventTimeEnd,Location, Eventdate, CreatedBy,PicturePath) VALUES (?,?,?,?,?,?,?);";
+        String sql = "INSERT INTO FuckEASVBar.dbo.Event (EventName, EventTimeStart, EventTimeEnd, Location, Eventdate, CreatedBy,PicturePath) VALUES (?,?,?,?,?,?,?);";
 
         try (Connection conn = databaseConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
@@ -98,6 +98,30 @@ public class EventsDAO_DB implements EventI {
         {
             ex.printStackTrace();
             throw new Exception("Could not delete Event", ex);
+        }
+        return event;
+    }
+
+    public Event updateEvent (Event event) throws Exception {
+        String sql = "UPDATE FuckEASVBar.dbo.event " +
+                "SET EventName = ?, EventDate = ?, EventTimeStart = ?, CreatedBy = ?, " +
+                "EventTimeEnd = ?, Location = ?, PicturePath = ? " +
+                "WHERE EventId = ?";
+
+        try (Connection conn = databaseConnector.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1,event.getName());
+            stmt.setString(2,event.getDate());
+            stmt.setString(3,event.getEventStart());
+            stmt.setString(4,event.getCreatedBy());
+            stmt.setString(5,event.getEventEnd());
+            stmt.setString(6,event.getLocation());
+            stmt.setString(7,event.getEventImage());
+            stmt.setInt(8, event.getId());
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw  new Exception("Could not Update Event");
         }
         return event;
     }

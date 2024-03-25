@@ -9,4 +9,6 @@ public interface EventI {
     public Event createEvent(Event event) throws Exception;
 
     public Event deleteEvent(Event event) throws Exception;
+
+    public Event updateEvent(Event event) throws Exception;
 }

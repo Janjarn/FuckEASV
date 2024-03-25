@@ -22,11 +22,15 @@ public class Event {
         this.eventImage = eventImage;
     }
 
+    public Event() {
+
+    }
+
     public int getId() {
         return id;
     }
 
-    private void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -34,7 +38,7 @@ public class Event {
         return name;
     }
 
-    private void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -42,7 +46,7 @@ public class Event {
         return eventStart;
     }
 
-    private void setEventStart(String eventStart) {
+    public void setEventStart(String eventStart) {
         this.eventStart = eventStart;
     }
 
@@ -50,7 +54,7 @@ public class Event {
         return eventEnd;
     }
 
-    private void setEventEnd(String eventEnd) {
+    public void setEventEnd(String eventEnd) {
         this.eventEnd = eventEnd;
     }
 
@@ -58,7 +62,7 @@ public class Event {
         return location;
     }
 
-    private void setLocation(String location) {
+    public void setLocation(String location) {
         this.location = location;
     }
 
@@ -66,15 +70,15 @@ public class Event {
         return date;
     }
 
-    private void setDate(String date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    private int getSoldTickets() {
+    public int getSoldTickets() {
         return soldTickets;
     }
 
-    private void setSoldTickets(int soldTickets) {
+    public void setSoldTickets(int soldTickets) {
         this.soldTickets = soldTickets;
     }
 
@@ -82,7 +86,7 @@ public class Event {
         return createdBy;
     }
 
-    private void setCreatedBy(String createdBy) {
+    public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
     }
 
@@ -90,7 +94,7 @@ public class Event {
         return eventImage;
     }
 
-    private void setEventImage(String eventImage) {
+    public void setEventImage(String eventImage) {
         this.eventImage = eventImage;
     }
 }

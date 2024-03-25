@@ -26,6 +26,8 @@ public class LoginViewController {
             Stage newStage = new Stage();
             newStage.setTitle("Admin Page");
             Scene scene = new Scene(secondWindow);
+            HomepageAdminController homepageAdminController = loader.getController();
+            homepageAdminController.setUp();
             newStage.setScene(scene);
             newStage.show();
             btnLogin.getScene().getWindow().hide();
@@ -36,8 +38,10 @@ public class LoginViewController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/KoordinatorPage.fxml"));
             Parent secondWindow = loader.load();
             Stage newStage = new Stage();
-            newStage.setTitle("Admin Page");
+            newStage.setTitle("Koordinator Page");
             Scene scene = new Scene(secondWindow);
+            KoordinatorPageController koordinatorPageController = loader.getController();
+            koordinatorPageController.setUp();
             newStage.setScene(scene);
             newStage.show();
             btnLogin.getScene().getWindow().hide();

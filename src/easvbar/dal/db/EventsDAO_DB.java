@@ -29,7 +29,7 @@ public class EventsDAO_DB {
                 // Map DB row to Song object
                 int id = rs.getInt("EventId");
                 String name = rs.getString("EventName");
-                String eventStart = rs.getString("EventTimeEnd");
+                String eventStart = rs.getString("EventTimeStart");
                 String eventEnd = rs.getString("EventTimeEnd");
                 String location = rs.getString("Location");
                 String date = rs.getString("EventDate");

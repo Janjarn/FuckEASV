@@ -21,7 +21,7 @@ public class EventsDAO_DB implements EventI {
         try (Connection conn = databaseConnector.getConnection();
              Statement stmt = conn.createStatement())
         {
-            String sql = "SELECT * FROM FuckEASVBar.Event";
+            String sql = "SELECT * FROM FuckEASVBar.dbo.Event";
             ResultSet rs = stmt.executeQuery(sql);
 
             // Loop through rows from the database result set
@@ -51,7 +51,7 @@ public class EventsDAO_DB implements EventI {
 
     public Event createEvent(Event event) throws Exception {
 
-        String sql = "INSERT INTO FuckEASVBar.Event (name, eventStart, eventEnd,location, date, createdBy,eventImage) VALUES (?,?,?,?,?,?,?);";
+        String sql = "INSERT INTO FuckEASVBar.dbo.Event (name, eventStart, eventEnd,location, date, createdBy,eventImage) VALUES (?,?,?,?,?,?,?);";
 
         try (Connection conn = databaseConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
@@ -87,7 +87,7 @@ public class EventsDAO_DB implements EventI {
         }
     }
     public Event deleteEvent (Event event) throws Exception {
-        String sql="DELETE FROM FuckEASVBar.Event WHERE EventId = ?;";
+        String sql="DELETE FROM FuckEASVBar.dbo.Event WHERE EventId = ?;";
         try (Connection conn = databaseConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql))
         {

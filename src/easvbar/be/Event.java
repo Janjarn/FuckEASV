@@ -11,20 +11,18 @@ public class Event {
     private String createdBy;
     private String eventImage;
 
-    private Event(int id, String name, String eventStart, String eventEnd, String location, String date,
-                  int soldTickets, String createdBy, String eventImage) {
+    public Event(int id, String name, String eventStart, String eventEnd, String location, String date, String createdBy, String eventImage) {
         this.id = id;
         this.name = name;
         this.eventStart = eventStart;
         this.eventEnd = eventEnd;
         this.location = location;
         this.date = date;
-        this.soldTickets = soldTickets;
         this.createdBy = createdBy;
         this.eventImage = eventImage;
     }
 
-    private int getId() {
+    public int getId() {
         return id;
     }
 
@@ -32,7 +30,7 @@ public class Event {
         this.id = id;
     }
 
-    private String getName() {
+    public String getName() {
         return name;
     }
 
@@ -40,7 +38,7 @@ public class Event {
         this.name = name;
     }
 
-    private String getEventStart() {
+    public String getEventStart() {
         return eventStart;
     }
 
@@ -48,7 +46,7 @@ public class Event {
         this.eventStart = eventStart;
     }
 
-    private String getEventEnd() {
+    public String getEventEnd() {
         return eventEnd;
     }
 
@@ -56,7 +54,7 @@ public class Event {
         this.eventEnd = eventEnd;
     }
 
-    private String getLocation() {
+    public String getLocation() {
         return location;
     }
 
@@ -64,7 +62,7 @@ public class Event {
         this.location = location;
     }
 
-    private String getDate() {
+    public String getDate() {
         return date;
     }
 
@@ -80,7 +78,7 @@ public class Event {
         this.soldTickets = soldTickets;
     }
 
-    private String getCreatedBy() {
+    public String getCreatedBy() {
         return createdBy;
     }
 
@@ -88,7 +86,7 @@ public class Event {
         this.createdBy = createdBy;
     }
 
-    private String getEventImage() {
+    public String getEventImage() {
         return eventImage;
     }
 

@@ -51,7 +51,7 @@ public class EventsDAO_DB implements EventI {
 
     public Event createEvent(Event event) throws Exception {
 
-        String sql = "INSERT INTO FuckEASVBar.dbo.Event (name, eventStart, eventEnd,location, date, createdBy,eventImage) VALUES (?,?,?,?,?,?,?);";
+        String sql = "INSERT INTO FuckEASVBar.dbo.Event (EventName, EventTimeStart, EventTimeEnd,Location, Eventdate, CreatedBy,PicturePath) VALUES (?,?,?,?,?,?,?);";
 
         try (Connection conn = databaseConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))

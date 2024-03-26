@@ -9,12 +9,14 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -52,6 +54,14 @@ public class KoordinatorPageController {
         }
     }
 
+    public void refreshEventList() {
+        try {
+            tableViewEvents.setItems(eventModel.getAllEvents());
+        } catch (Exception e) {
+            e.printStackTrace(); // Handle exception appropriately
+        }
+    }
+
     public void setUp() {
         try {
             tableViewEvents.setItems(eventModel.getAllEvents());
@@ -70,18 +80,42 @@ public class KoordinatorPageController {
 
 
     @FXML
-    private void handleCreateEventWindow(ActionEvent actionEvent) throws IOException {
+    private void handleCreateEventWindow(ActionEvent actionEvent) throws Exception {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/EventMaker.fxml"));
         Parent secondWindow = loader.load();
         Stage newStage = new Stage();
         newStage.setTitle("Event Maker");
         Scene scene = new Scene(secondWindow);
+
+        EventMakerController eventMakerController = loader.getController();
+        eventMakerController.setup();
+
         newStage.setScene(scene);
-        newStage.show();
+        newStage.initOwner(((Node) actionEvent.getSource()).getScene().getWindow());
+        newStage.showAndWait();
 
-        tableViewEvents.refresh(); // FIXME Make it so it refreshed when event is created
+        tableViewEvents.refresh();
 
+    }
+
+    @FXML
+    private void handleUpdateEvent(ActionEvent actionEvent) throws IOException {
+        Event updateEvent = (Event) tableViewEvents.getSelectionModel().getSelectedItem();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/EventMaker.fxml"));
+        Parent secondWindow = loader.load();
+        Stage newStage = new Stage();
+        newStage.setTitle("Event Maker");
+        Scene scene = new Scene(secondWindow);
+
+        EventMakerController eventMakerController = loader.getController();
+        eventMakerController.updateEvent(updateEvent);
+
+        newStage.setScene(scene);
+        newStage.initOwner(((Node) actionEvent.getSource()).getScene().getWindow());
+        newStage.showAndWait();
+
+        tableViewEvents.refresh();
     }
 
     @FXML
@@ -107,20 +141,5 @@ public class KoordinatorPageController {
             throw new RuntimeException(e);
         }
 
-    }
-
-    public void handleUpdateEvent(ActionEvent actionEvent) throws IOException {
-        Event updateEvent = (Event) tableViewEvents.getSelectionModel().getSelectedItem();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/EventMaker.fxml"));
-        Parent secondWindow = loader.load();
-        Stage newStage = new Stage();
-        newStage.setTitle("Event Maker");
-        Scene scene = new Scene(secondWindow);
-        EventMakerController eventMakerController = loader.getController();
-        eventMakerController.updateEvent(updateEvent);
-        newStage.setScene(scene);
-        newStage.show();
-
-        tableViewEvents.refresh(); // FIXME Make it so it refreshed when event is updated
     }
 }

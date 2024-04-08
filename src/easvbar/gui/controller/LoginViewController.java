@@ -37,7 +37,7 @@ public class LoginViewController {
 
         // here the method is run that validates the user credentials.
         Worker workerLogged = workerManager.validateUser(userName, userPassword);
-        if (!(workerLogged != null)) {
+        if (!(workerLogged == null)) {
             // if it matches you are logged in
             if (workerLogged.getRoleId() == 1) {
 
@@ -49,8 +49,15 @@ public class LoginViewController {
                 HomepageAdminController homepageAdminController = loader.getController();
                 homepageAdminController.setUp();
                 newStage.setScene(scene);
+
+                // Check if the current window is maximized
+                Stage currentStage = (Stage) btnLogin.getScene().getWindow();
+                if (currentStage.isMaximized()) {
+                    newStage.setMaximized(true); // Maximize the new window
+                }
+
                 newStage.show();
-                btnLogin.getScene().getWindow().hide();
+                currentStage.hide();
 
             }
             if (workerLogged.getRoleId() == 2) {
@@ -63,8 +70,15 @@ public class LoginViewController {
                 KoordinatorPageController koordinatorPageController = loader.getController();
                 koordinatorPageController.setUp();
                 newStage.setScene(scene);
+
+                // Check if the current window is maximized
+                Stage currentStage = (Stage) btnLogin.getScene().getWindow();
+                if (currentStage.isMaximized()) {
+                    newStage.setMaximized(true); // Maximize the new window
+                }
+
                 newStage.show();
-                btnLogin.getScene().getWindow().hide();
+                currentStage.hide();
 
             }
         }else {

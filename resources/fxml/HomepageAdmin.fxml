@@ -7,63 +7,85 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="681.0" prefWidth="1167.0" styleClass="backGround" stylesheets="@../css/MainCss.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easvbar.gui.controller.HomepageAdminController">
+   <bottom>
+      <MFXListView fx:id="listViewUpcomingEvents" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#handleUpComingEvents" prefHeight="163.0" prefWidth="1157.0" styleClass="list-view" BorderPane.alignment="BOTTOM_CENTER">
+         <BorderPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </BorderPane.margin>
+      </MFXListView>
+   </bottom>
    <top>
-      <HBox prefHeight="63.0" prefWidth="1167.0" BorderPane.alignment="CENTER">
+      <GridPane prefHeight="58.0" prefWidth="1141.0" BorderPane.alignment="TOP_CENTER">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="258.0" minWidth="10.0" prefWidth="192.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
+            <ColumnConstraints halignment="LEFT" hgrow="NEVER" maxWidth="1.7976931348623157E308" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+         </rowConstraints>
          <children>
-            <MFXButton fx:id="btnLogo" buttonType="RAISED" depthLevel="LEVEL1" onAction="#handleLogo" prefHeight="110.0" prefWidth="182.0" text="Logo">
-               <HBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </HBox.margin>
-            </MFXButton>
-            <MFXTextField prefHeight="109.0" prefWidth="600.0">
-               <HBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </HBox.margin>
-            </MFXTextField>
-            <ButtonBar prefHeight="63.0" prefWidth="386.0">
-               <HBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </HBox.margin>
+            <MFXButton fx:id="btnLogo" buttonType="RAISED" depthLevel="LEVEL1" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#handleLogo" prefHeight="58.0" prefWidth="165.0" text="Logo" />
+            <MFXTextField maxWidth="1.7976931348623157E308" prefHeight="109.0" prefWidth="600.0" GridPane.columnIndex="1" />
+            <ButtonBar maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="63.0" prefWidth="386.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
                <buttons>
-                  <MFXButton fx:id="btnUsers" buttonType="RAISED" depthLevel="LEVEL1" onAction="#handleUsers" prefHeight="89.0" prefWidth="118.0" text="Users" />
+                  <MFXButton fx:id="btnUsers" buttonType="RAISED" depthLevel="LEVEL1" onAction="#handleUsers" prefHeight="53.0" prefWidth="118.0" text="Users" />
                   <MFXButton fx:id="btnAdminPanel" buttonType="RAISED" depthLevel="LEVEL1" onAction="#handleAdminPanel" prefHeight="53.0" prefWidth="118.0" text="Admin Panel" />
                   <MFXButton fx:id="btnLogout" buttonType="RAISED" depthLevel="LEVEL1" onAction="#handleLogout" prefHeight="53.0" prefWidth="118.0" text="Logout" />
                </buttons>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
             </ButtonBar>
          </children>
-      </HBox>
+         <BorderPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </BorderPane.margin>
+      </GridPane>
    </top>
    <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <GridPane BorderPane.alignment="CENTER">
+         <columnConstraints>
+            <ColumnConstraints maxWidth="1.7976931348623157E308" minWidth="289.0" prefWidth="428.0" />
+            <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="1.7976931348623157E308" vgrow="SOMETIMES" />
+         </rowConstraints>
          <children>
-            <HBox prefHeight="450.0" prefWidth="1167.0">
+            <MFXTextField fx:id="txtFieldEventInfo" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#handleEventInfo" prefHeight="440.0" prefWidth="53.0">
+               <GridPane.margin>
+                  <Insets bottom="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </MFXTextField>
+            <VBox alignment="BOTTOM_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="BOTTOM" GridPane.vgrow="ALWAYS">
+               <VBox.vgrow>
+                  <Priority fx:constant="ALWAYS" />
+               </VBox.vgrow>
                <children>
-                  <MFXTextField fx:id="txtFieldEventInfo" onAction="#handleEventInfo" prefHeight="525.0" prefWidth="479.0">
-                     <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </HBox.margin>
-                  </MFXTextField>
-                  <VBox>
-                     <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </HBox.margin>
-                     <children>
-                        <ImageView fx:id="imageViewShowImage" fitHeight="347.0" fitWidth="678.0" pickOnBounds="true" preserveRatio="true" />
-                        <MFXListView fx:id="listViewFeaturedEvent" depthLevel="LEVEL1" onMouseClicked="#handleFeaturedEvent" prefHeight="489.0" prefWidth="678.0" />
-                     </children>
-                  </VBox>
+                  <ImageView fx:id="imageViewShowImage" fitHeight="357.0" fitWidth="731.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </ImageView>
+                  <MFXListView fx:id="listViewFeaturedEvent" depthLevel="LEVEL1" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" onMouseClicked="#handleFeaturedEvent" prefHeight="71.0" prefWidth="368.0">
+                     <VBox.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                     </VBox.margin>
+                  </MFXListView>
                </children>
-            </HBox>
-            <MFXListView styleClass="list-view" fx:id="listViewUpcomingEvents" onMouseClicked="#handleUpComingEvents" prefHeight="163.0" prefWidth="1157.0">
-            <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </VBox.margin>
-            </MFXListView>
+            </VBox>
          </children>
-      </VBox>
+         <BorderPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </BorderPane.margin>
+      </GridPane>
    </center>
 </BorderPane>

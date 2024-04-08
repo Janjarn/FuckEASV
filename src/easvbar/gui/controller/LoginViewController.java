@@ -10,19 +10,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Properties;
 
 public class LoginViewController {
     @FXML
     private MFXPasswordField txtPassword;
     @FXML
     private MFXTextField txtUsername;
-    private int toggle = 2;
 
     @FXML
     private MFXButton btnLogin;
@@ -74,15 +70,5 @@ public class LoginViewController {
         }else {
             txtUsername.setText("Wrong password or username");
         }
-    }
-
-    @FXML
-    private void handleEvent(ActionEvent actionEvent) {
-        toggle = 2;
-    }
-
-    @FXML
-    private void handleAdmin(ActionEvent actionEvent) {
-        toggle = 1;
     }
 }

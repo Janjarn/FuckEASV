@@ -4,7 +4,7 @@ import easvbar.be.Event;
 
 import java.util.List;
 
-public interface EventI {
+public interface IEvent {
     public List<Event> getAllEvents() throws Exception;
     public Event createEvent(Event event) throws Exception;
 

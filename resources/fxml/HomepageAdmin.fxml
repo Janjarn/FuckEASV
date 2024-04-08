@@ -58,7 +58,7 @@
                   </VBox>
                </children>
             </HBox>
-            <MFXListView fx:id="listViewUpcomingEvents" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#handleUpComingEvents" prefHeight="163.0" prefWidth="1157.0">
+            <MFXListView styleClass="list-view" fx:id="listViewUpcomingEvents" onMouseClicked="#handleUpComingEvents" prefHeight="163.0" prefWidth="1157.0">
             <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>

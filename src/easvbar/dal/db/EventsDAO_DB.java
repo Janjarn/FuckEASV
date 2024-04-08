@@ -1,14 +1,14 @@
 package easvbar.dal.db;
 
 import easvbar.be.Event;
-import easvbar.dal.Interface.EventI;
+import easvbar.dal.Interface.IEvent;
 
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EventsDAO_DB implements EventI {
+public class EventsDAO_DB implements IEvent {
     private DatabaseConnector databaseConnector;
 
     public EventsDAO_DB() throws IOException {
@@ -16,7 +16,7 @@ public class EventsDAO_DB implements EventI {
     }
 
     public List<Event> getAllEvents() throws Exception {
-        ArrayList<Event> allSongs = new ArrayList<>();
+        ArrayList<Event> allEvents = new ArrayList<>();
 
         try (Connection conn = databaseConnector.getConnection();
              Statement stmt = conn.createStatement())
@@ -39,13 +39,13 @@ public class EventsDAO_DB implements EventI {
 
 
                 Event event = new Event (id,name,eventStart,eventEnd,location,date,createdBy,eventImage);
-                allSongs.add(event);
+                allEvents.add(event);
             }
-            return allSongs;
+            return allEvents;
         }
         catch (SQLException ex){
             ex.printStackTrace();
-            throw new Exception("Could not get songs from database", ex);
+            throw new Exception("Could not get Events from database", ex);
         }
     }
 

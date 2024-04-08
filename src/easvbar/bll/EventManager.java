@@ -2,7 +2,6 @@ package easvbar.bll;
 
 import easvbar.be.Event;
 import easvbar.bll.util.EventSearcher;
-import easvbar.dal.Interface.EventI;
 import easvbar.dal.db.EventsDAO_DB;
 
 import java.io.IOException;

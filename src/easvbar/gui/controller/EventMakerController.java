@@ -1,6 +1,7 @@
 package easvbar.gui.controller;
 
 import easvbar.be.Event;
+import easvbar.gui.helperclases.ShowImageClass;
 import easvbar.gui.model.EventMakerModel;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
@@ -9,13 +10,25 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
+import javafx.scene.image.Image;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class EventMakerController extends BaseController implements Initializable {
+    @FXML
+    private StackPane background;
     @FXML
     private MFXButton btnUpdate;
     private EventMakerModel eventMakerModel;
@@ -27,11 +40,13 @@ public class EventMakerController extends BaseController implements Initializabl
     private MFXButton createBtn, cancelBtn, uploadBtn;
     private String errorText;
     private Event selectedEvent;
+    private ShowImageClass showImageClass;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
+            showImageClass= new ShowImageClass();
             eventMakerModel = new EventMakerModel();
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -51,6 +66,8 @@ public class EventMakerController extends BaseController implements Initializabl
         eventCreatedBy.setText(event.getCreatedBy());
         eventName.setText(event.getName());
         eventFilePath.setText(event.getEventImage());
+        background.setBackground(showImageClass.setBackGroundImage(event.getEventImage()));
+
 
     }
 
@@ -71,6 +88,31 @@ public class EventMakerController extends BaseController implements Initializabl
     public void handleCancelBtn(ActionEvent actionEvent) {
         Stage stage = (Stage) cancelBtn.getScene().getWindow();
         stage.close();
+    }
+
+    public void handleOnDragDropped(DragEvent dragEvent) {
+        Dragboard dragboard = dragEvent.getDragboard();
+        if (dragboard.hasFiles()) {
+            for (File file : dragboard.getFiles()) {
+                // Construct the destination path
+                Path destinationPath = Paths.get("resources/images", file.getName());
+                try {
+                    // Copy the file to the destination folder
+                    Files.copy(file.toPath(), destinationPath);
+                    eventFilePath.setText(file.getName());
+                    background.setBackground(showImageClass.setBackGroundImage(file.getName()));
+                } catch (IOException e) {
+                    System.err.println("Error saving file " + file.getName() + ": " + e.getMessage());
+                }
+            }
+        }
+    }
+
+    public void handleOnDragOver(DragEvent dragEvent) {
+        if (dragEvent.getGestureSource() != this) {
+            dragEvent.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+        }
+        dragEvent.consume();
     }
 
     @FXML

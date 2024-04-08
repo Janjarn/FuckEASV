@@ -5,11 +5,12 @@
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane styleClass="backGround" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="681.0" prefWidth="1167.0" stylesheets="@../css/MainCss.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easvbar.gui.controller.HomepageAdminController">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="681.0" prefWidth="1167.0" styleClass="backGround" stylesheets="@../css/MainCss.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easvbar.gui.controller.HomepageAdminController">
    <top>
       <HBox prefHeight="63.0" prefWidth="1167.0" BorderPane.alignment="CENTER">
          <children>
@@ -46,15 +47,19 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
                   </MFXTextField>
-                  <MFXListView fx:id="listViewFeaturedEvent" depthLevel="LEVEL1" onMouseClicked="#handleFeaturedEvent" prefHeight="489.0" prefWidth="678.0">
+                  <VBox>
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
-                  </MFXListView>
+                     <children>
+                        <ImageView fx:id="imageViewShowImage" fitHeight="347.0" fitWidth="678.0" pickOnBounds="true" preserveRatio="true" />
+                        <MFXListView fx:id="listViewFeaturedEvent" depthLevel="LEVEL1" onMouseClicked="#handleFeaturedEvent" prefHeight="489.0" prefWidth="678.0" />
+                     </children>
+                  </VBox>
                </children>
             </HBox>
-            <MFXListView fx:id="listViewUpcomingEvents" onMouseClicked="#handleUpComingEvents" prefHeight="163.0" prefWidth="1157.0">
-               <VBox.margin>
+            <MFXListView fx:id="listViewUpcomingEvents" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#handleUpComingEvents" prefHeight="163.0" prefWidth="1157.0">
+            <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </MFXListView>

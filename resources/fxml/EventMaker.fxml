@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="699.0" prefWidth="981.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easvbar.gui.controller.EventMakerController">
+<StackPane fx:id="background" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="699.0" prefWidth="981.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easvbar.gui.controller.EventMakerController">
    <children>
       <GridPane>
         <columnConstraints>
@@ -40,11 +40,6 @@
                   <Insets left="20.0" right="20.0" />
                </GridPane.margin>
             </MFXTextField>
-            <MFXTextField fx:id="eventTicketsSold" maxWidth="1.7976931348623157E308" prefHeight="49.0" prefWidth="653.0" promptText="Tickets Sold" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-               <GridPane.margin>
-                  <Insets left="20.0" right="20.0" />
-               </GridPane.margin>
-            </MFXTextField>
             <MFXTextField fx:id="eventLocation" maxWidth="1.7976931348623157E308" prefHeight="49.0" prefWidth="653.0" promptText="Location" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets left="20.0" right="20.0" />
@@ -60,12 +55,12 @@
                   <Insets left="20.0" right="20.0" />
                </GridPane.margin>
             </DatePicker>
-            <MFXTextField fx:id="eventFilePath" maxWidth="1.7976931348623157E308" promptText="Image File Path" GridPane.rowIndex="3">
+            <MFXTextField fx:id="eventFilePath" maxWidth="1.7976931348623157E308" onDragDropped="#handleOnDragDropped" onDragOver="#handleOnDragOver" promptText="Image File Path" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="20.0" right="20.0" />
                </GridPane.margin>
             </MFXTextField>
-            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <HBox prefHeight="174.0" prefWidth="560.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
                   <MFXButton fx:id="createBtn" buttonType="RAISED" depthLevel="LEVEL1" onAction="#handleCreateEvent" text="Create">
                      <font>
@@ -93,7 +88,7 @@
                   </MFXButton>
                </children>
             </HBox>
-            <MFXButton fx:id="uploadBtn" buttonType="RAISED" depthLevel="LEVEL1" onAction="#handleUploadPicture" text="Upload" GridPane.rowIndex="3">
+            <MFXButton fx:id="uploadBtn" buttonType="RAISED" depthLevel="LEVEL1" onAction="#handleUploadPicture" text="Upload" GridPane.rowIndex="2">
                <font>
                   <Font size="20.0" />
                </font>

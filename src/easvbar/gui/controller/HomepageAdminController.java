@@ -1,7 +1,8 @@
 package easvbar.gui.controller;
 
 import easvbar.be.Event;
-import easvbar.bll.EventManager;
+import easvbar.gui.helperclases.ShowImageClass;
+import easvbar.gui.model.EventModel;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXListView;
 import io.github.palexdev.materialfx.controls.MFXTextField;
@@ -12,13 +13,18 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 public class HomepageAdminController {
+    @FXML
+    private ImageView imageViewShowImage;
     @FXML
     private MFXButton btnUsers;
     @FXML
@@ -34,21 +40,25 @@ public class HomepageAdminController {
     @FXML
     private MFXListView listViewUpcomingEvents;
 
-    private EventManager eventManager = new EventManager();
+    private EventModel eventModel = new EventModel();
+    private ShowImageClass showImageClass = new ShowImageClass();
 
-    public HomepageAdminController() throws IOException {
+    public HomepageAdminController() throws Exception {
     }
 
-    public void setUp(){
+    public void setUp() {
         try {
             // Get all events
-            List<Event> allEvents = eventManager.getAllEvents();
+            List<Event> allEvents = eventModel.getAllEvents();
 
             // Decide which events are featured (for demonstration, let's just use the first event)
             ObservableList<Event> featuredEvents = FXCollections.observableArrayList();
             if (!allEvents.isEmpty()) {
                 featuredEvents.add(allEvents.get(0));
             }
+
+            Event event = featuredEvents.get(0);
+            imageViewShowImage.setImage(showImageClass.showImage(event.getEventImage()));
             listViewFeaturedEvent.setItems(featuredEvents);
 
             // For upcoming events, let's display all events except the featured one

@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="571.0" prefWidth="810.0" stylesheets="@../css/MainCss.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easvbar.gui.controller.KoordinatorPageController">
+<BorderPane fx:id="background" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="571.0" prefWidth="810.0" stylesheets="@../css/MainCss.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easvbar.gui.controller.KoordinatorPageController">
    <top>
       <VBox prefHeight="117.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
@@ -64,7 +64,7 @@
       </VBox>
    </top>
    <center>
-      <TableView fx:id="tableViewEvents" prefHeight="430.0" prefWidth="540.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="tableViewEvents" onMouseClicked="#handleSelectedEvent" prefHeight="430.0" prefWidth="540.0" BorderPane.alignment="CENTER">
          <columns>
             <TableColumn fx:id="tbwcName" prefWidth="101.0" text="Event Name" />
             <TableColumn fx:id="tbwcDate" prefWidth="84.0" text="Event Date" />

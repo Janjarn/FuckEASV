@@ -2,6 +2,7 @@ package easvbar.gui.controller;
 
 import easvbar.be.Event;
 import easvbar.bll.EventManager;
+import easvbar.gui.helperclases.ShowImageClass;
 import easvbar.gui.model.EventModel;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.collections.FXCollections;
@@ -16,14 +17,20 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 public class KoordinatorPageController {
 
+    @FXML
+    private BorderPane background;
     @FXML
     private Button btnUpdateEvent;
     @FXML
@@ -45,9 +52,11 @@ public class KoordinatorPageController {
     @FXML
     private Button btnCreateEvent;
     private EventModel eventModel;
+    private ShowImageClass showImageClass;
 
     public KoordinatorPageController(){
         try {
+            showImageClass = new ShowImageClass();
             eventModel = new EventModel();
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -141,5 +150,10 @@ public class KoordinatorPageController {
             throw new RuntimeException(e);
         }
 
+    }
+    @FXML
+    private void handleSelectedEvent(MouseEvent mouseEvent) {
+        Event selectedEvent = (Event) tableViewEvents.getSelectionModel().getSelectedItem();
+        background.setBackground(showImageClass.setBackGroundImage(selectedEvent.getEventImage()));
     }
 }

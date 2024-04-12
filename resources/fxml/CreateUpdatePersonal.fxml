@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="160.0" prefWidth="495.0" styleClass="backGround" stylesheets="@../css/MainCss.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easvbar.gui.controller.CreateUpdatePersonalController">
+   <children>
+      <MFXTextField fx:id="txtName" floatMode="ABOVE" layoutX="14.0" layoutY="37.0" prefHeight="29.0" prefWidth="217.0" promptText="Enter personals name here" />
+      <Label layoutX="14.0" layoutY="14.0" text="Personals Name" textFill="WHITE" />
+      <Label fx:id="lblRole" layoutX="258.0" layoutY="14.0" text="Personals Role" textFill="WHITE" />
+      <MFXButton layoutX="262.0" layoutY="37.0" onAction="#handleAdmin" text="Admin" />
+      <MFXButton layoutX="335.0" layoutY="37.0" onAction="#handleKoordinator" text="Koordinator" />
+      <MFXTextField fx:id="txtPassword" floatMode="ABOVE" layoutX="14.0" layoutY="105.0" prefHeight="29.0" prefWidth="217.0" promptText="Enter personals password here" />
+      <Label layoutX="14.0" layoutY="82.0" text="Personals Password" textFill="WHITE" />
+      <MFXButton fx:id="btnCreateUpdate" layoutX="262.0" layoutY="105.0" onAction="#handleCreateUpdate" text="Create" />
+      <MFXButton fx:id="btnCancel" layoutX="335.0" layoutY="105.0" onAction="#handleCancel" text="Cancel" />
+   </children>
+</AnchorPane>

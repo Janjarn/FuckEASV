@@ -5,6 +5,7 @@
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -15,11 +16,22 @@
 
 <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="681.0" prefWidth="1167.0" styleClass="backGround" stylesheets="@../css/MainCss.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easvbar.gui.controller.HomepageAdminController">
    <bottom>
-      <MFXListView fx:id="listViewUpcomingEvents" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#handleUpComingEvents" prefHeight="163.0" prefWidth="1157.0" styleClass="list-view" BorderPane.alignment="BOTTOM_CENTER">
+      <GridPane BorderPane.alignment="BOTTOM_CENTER">
          <BorderPane.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </BorderPane.margin>
-      </MFXListView>
+         <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="1.7976931348623157E308" minWidth="10.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="ALWAYS" />
+            <RowConstraints minHeight="10.0" valignment="TOP" vgrow="ALWAYS" />
+         </rowConstraints>
+         <children>
+            <MFXListView fx:id="listViewUpcomingEvents" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#handleUpComingEvents" prefHeight="149.0" prefWidth="1157.0" styleClass="list-view" GridPane.rowIndex="1" />
+            <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="1179.0" text="Upcomming Events" textFill="WHITE" />
+         </children>
+      </GridPane>
    </bottom>
    <top>
       <GridPane prefHeight="58.0" prefWidth="1141.0" BorderPane.alignment="TOP_CENTER">

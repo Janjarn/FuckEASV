@@ -14,15 +14,31 @@ public class WorkerModel {
     public WorkerModel() throws Exception {
         workerManager = new WorkerManager();
         allWorkers = FXCollections.observableArrayList();
-        allWorkers.addAll(workerManager.getAllEvents());
+        allWorkers.addAll(workerManager.getAllWorkers());
     }
 
-    public ObservableList<Worker> getAllEvents() {
+    public ObservableList<Worker> getAllWorkers() {
         return allWorkers;
     }
 
-    public void deleteEvent(Worker worker) throws Exception {
-        Worker w = workerManager.deleteEvent(worker);
+    public void deleteWorker(Worker worker) throws Exception {
+        Worker w = workerManager.deleteWorker(worker);
         allWorkers.remove(w);
+    }
+
+    public void createWorker(Worker worker) throws Exception{
+        Worker w = workerManager.createWorker(worker);
+        allWorkers.add(w);
+    }
+
+    public void updateWorker(Worker worker) throws Exception {
+        Worker selectedworker = new Worker();
+        selectedworker.setId(worker.getId());
+        selectedworker.setName(worker.getName());
+        selectedworker.setRole(worker.getRole());
+        selectedworker.setPassword(worker.getPassword());
+        selectedworker.setRoleId(worker.getRoleId());
+
+        workerManager.updateWorker(selectedworker);
     }
 }

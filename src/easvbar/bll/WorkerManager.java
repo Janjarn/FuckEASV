@@ -12,18 +12,18 @@ public class WorkerManager {
     public WorkerManager() throws IOException {
         workersDAO = new WorkersDAO_DB();
     }
-    public List<Worker> getAllEvents() throws Exception {
+    public List<Worker> getAllWorkers() throws Exception {
         return workersDAO.getAllWorkers();
     }
-    public Worker createEvent (Worker newWorker) throws Exception {
+    public Worker createWorker (Worker newWorker) throws Exception {
         return workersDAO.createWorker(newWorker);
     }
-    public Worker deleteEvent(Worker worker) throws Exception {
+    public Worker deleteWorker(Worker worker) throws Exception {
         workersDAO.deleteWorker(worker);
         return worker;
     }
 
-    public Worker updateEvent(Worker selectedWorker) throws Exception {
+    public Worker updateWorker(Worker selectedWorker) throws Exception {
         return workersDAO.updateWorker(selectedWorker);
     }
 

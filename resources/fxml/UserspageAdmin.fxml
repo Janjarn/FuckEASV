@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXListView?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+
+
+<BorderPane prefHeight="681.0" prefWidth="1167.0" styleClass="backGround" stylesheets="@../css/MainCss.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easvbar.gui.controller.UserspageAdminController">
+   <top>
+      <GridPane prefHeight="58.0" prefWidth="1141.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="258.0" minWidth="10.0" prefWidth="192.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="602.0" prefWidth="670.0" />
+            <ColumnConstraints hgrow="NEVER" maxWidth="1.7976931348623157E308" minWidth="308.0" prefWidth="309.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <MFXButton fx:id="btnLogo" buttonType="RAISED" depthLevel="LEVEL1" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#handleLogo" prefHeight="58.0" prefWidth="165.0" text="Logo" />
+            <MFXTextField maxWidth="1.7976931348623157E308" prefHeight="58.0" prefWidth="669.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS" />
+            <ButtonBar maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="58.0" prefWidth="385.0" GridPane.columnIndex="2">
+               <buttons>
+                  <MFXButton fx:id="btnEvents" buttonType="RAISED" depthLevel="LEVEL1" onAction="#handleEvents" prefHeight="53.0" prefWidth="118.0" text="Events" />
+                  <MenuButton fx:id="btnProfile" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="53.0" prefWidth="137.0" styleClass="mfx-button" text="Profile" textAlignment="RIGHT">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#handleProfile" text="Edit Profile" />
+                      <MenuItem fx:id="btnLogout" mnemonicParsing="false" onAction="#handleLogout" text="Logout" />
+                    </items>
+                  </MenuButton>
+               </buttons>
+            </ButtonBar>
+         </children>
+      </GridPane>
+   </top>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+   <center>
+      <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="TOP_CENTER">
+         <columnConstraints>
+            <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="579.0" />
+            <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="578.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" vgrow="ALWAYS" />
+         </rowConstraints>
+         <children>
+            <GridPane gridLinesVisible="true" prefHeight="613.0" prefWidth="586.0" GridPane.columnIndex="1">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="45.0" valignment="CENTER" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label fx:id="lblPersonal" alignment="CENTER" contentDisplay="CENTER" prefHeight="94.0" prefWidth="609.0" text="List of Personal" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
+                  <GridPane GridPane.rowIndex="1">
+                     <columnConstraints>
+                        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="45.0" valignment="CENTER" vgrow="ALWAYS" />
+                        <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="518.0" vgrow="ALWAYS" />
+                     </rowConstraints>
+                     <children>
+                        <HBox fx:id="hBoxPersonal" alignment="CENTER" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
+                           <children>
+                              <MFXButton fx:id="btnCreatePersonal" onAction="#handleCreatePersonal" prefHeight="38.0" prefWidth="126.0" text="Create Personal">
+                                 <HBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </HBox.margin>
+                              </MFXButton>
+                              <MFXButton fx:id="btnUpdatePersonal" onAction="#handleUpdatePersonal" prefHeight="38.0" prefWidth="130.0" text="Update Personal">
+                                 <HBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </HBox.margin>
+                              </MFXButton>
+                              <MFXButton fx:id="btnDeletePersonal" onAction="#handleDeletePersonal" prefHeight="38.0" prefWidth="130.0" text="Delete Personal">
+                                 <HBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </HBox.margin>
+                              </MFXButton>
+                           </children>
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </GridPane.margin>
+                        </HBox>
+                        <TableView fx:id="listPersonal" onMouseClicked="#handleSelectPersonal" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                          <columns>
+                            <TableColumn fx:id="cclPersonalName" prefWidth="149.0" text="Name" />
+                            <TableColumn fx:id="cclPersonalRole" minWidth="0.0" prefWidth="428.0" text="Role" />
+                          </columns>
+                           <GridPane.margin>
+                              <Insets left="5.0" top="5.0" />
+                           </GridPane.margin>
+                        </TableView>
+                     </children>
+                  </GridPane>
+               </children>
+            </GridPane>
+            <GridPane gridLinesVisible="true" prefHeight="613.0" prefWidth="583.0">
+              <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="-Infinity" minHeight="0.0" prefHeight="45.0" valignment="CENTER" vgrow="ALWAYS" />
+                <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" valignment="CENTER" vgrow="ALWAYS" />
+              </rowConstraints>
+               <children>
+                  <Label fx:id="lblCustomers" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" prefHeight="94.0" prefWidth="609.0" text="List of Customers" textAlignment="CENTER" textFill="WHITE" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+                  <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+                    <columnConstraints>
+                      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="45.0" valignment="CENTER" vgrow="ALWAYS" />
+                      <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="518.0" vgrow="ALWAYS" />
+                    </rowConstraints>
+                     <children>
+                        <HBox fx:id="hBoxCustomers" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
+                           <children>
+                              <MFXButton fx:id="btnCreateCustomer" onAction="#handleCreateCustomer" prefHeight="38.0" prefWidth="131.0" text="Create Customer">
+                                 <HBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </HBox.margin>
+                              </MFXButton>
+                              <MFXButton fx:id="btnUpdateCustomer" onAction="#handleUpdateCustomer" prefHeight="38.0" prefWidth="137.0" text="Update Customer">
+                                 <HBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </HBox.margin>
+                              </MFXButton>
+                              <MFXButton fx:id="btnDeleteCustomer" onAction="#handleDeleteCustomer" prefHeight="38.0" prefWidth="128.0" text="Delete Customer">
+                                 <HBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </HBox.margin>
+                              </MFXButton>
+                           </children>
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </GridPane.margin>
+                        </HBox>
+                        <MFXListView fx:id="listCustomers" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#handleSelectUser" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                           <GridPane.margin>
+                              <Insets right="5.0" top="5.0" />
+                           </GridPane.margin>
+                        </MFXListView>
+                     </children>
+                  </GridPane>
+               </children>
+            </GridPane>
+         </children>
+      </GridPane>
+   </center>
+</BorderPane>

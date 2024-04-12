@@ -103,8 +103,7 @@ public class KoordinatorPageController {
         newStage.setScene(scene);
         newStage.initOwner(((Node) actionEvent.getSource()).getScene().getWindow());
         newStage.showAndWait();
-
-        tableViewEvents.refresh();
+        setUp();
 
     }
 
@@ -123,8 +122,7 @@ public class KoordinatorPageController {
         newStage.setScene(scene);
         newStage.initOwner(((Node) actionEvent.getSource()).getScene().getWindow());
         newStage.showAndWait();
-
-        tableViewEvents.refresh();
+        setUp();
     }
 
     @FXML

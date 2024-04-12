@@ -22,6 +22,10 @@ public class Worker {
         this.roleId = roleId;
     }
 
+    public Worker() {
+
+    }
+
     public int getId() {
         return id;
     }
@@ -62,4 +66,11 @@ public class Worker {
         this.roleId = roleId;
     }
 
+    @Override
+    public String toString() {
+        return
+
+                "Name " + name + " | " +
+                "Occupation " + role;
+    }
 }

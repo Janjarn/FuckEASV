@@ -73,7 +73,25 @@ public class HomepageAdminController {
     private void handleLogo(ActionEvent actionEvent) {
     }
     @FXML
-    private void handleUsers(ActionEvent actionEvent) {
+    private void handleUsers(ActionEvent actionEvent) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/UserspageAdmin.fxml"));
+        Parent secondWindow = loader.load();
+        Stage newStage = new Stage();
+        newStage.setTitle("Users Page");
+        Scene scene = new Scene(secondWindow);
+        UserspageAdminController userspageAdminController = loader.getController();
+        userspageAdminController.setUp();
+        newStage.setScene(scene);
+
+        // Check if the current window is maximized
+        Stage currentStage = (Stage) btnUsers.getScene().getWindow();
+        if (currentStage.isMaximized()) {
+            newStage.setMaximized(true); // Maximize the new window
+        }
+
+        newStage.show();
+        currentStage.hide();
     }
     @FXML
     private void handleAdminPanel(ActionEvent actionEvent) {
@@ -87,8 +105,15 @@ public class HomepageAdminController {
         newStage.setTitle("EASV Bar");
         Scene scene = new Scene(secondWindow);
         newStage.setScene(scene);
+
+        // Check if the current window is maximized
+        Stage currentStage = (Stage) btnLogout.getScene().getWindow();
+        if (currentStage.isMaximized()) {
+            newStage.setMaximized(true); // Maximize the new window
+        }
+
         newStage.show();
-        btnLogout.getScene().getWindow().hide();
+        currentStage.hide();
 
     }
     @FXML

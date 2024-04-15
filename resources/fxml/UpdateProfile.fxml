@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="background" prefHeight="160.0" prefWidth="338.0" styleClass="backGround" stylesheets="@../css/MainCss.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easvbar.gui.controller.UpdateProfileController">
+   <children>
+      <MFXTextField fx:id="txtPassword" floatMode="ABOVE" layoutX="14.0" layoutY="31.0" prefHeight="29.0" prefWidth="217.0" promptText="Enter password here" />
+      <Label fx:id="lblPassword" layoutX="14.0" layoutY="14.0" text="Password" textFill="WHITE" />
+      <MFXButton fx:id="btnUpdate" layoutX="248.0" layoutY="31.0" onAction="#handleUpdate" text="Update" />
+      <MFXButton fx:id="btnCancel" layoutX="248.0" layoutY="73.0" onAction="#handleCancel" prefHeight="30.0" prefWidth="66.0" text="Cancel" />
+      <MFXTextField fx:id="txtImagePath" allowEdit="false" floatMode="ABOVE" layoutX="14.0" layoutY="117.0" onDragDropped="#handleDragDrop" onDragOver="#handleDragOver" prefHeight="29.0" prefWidth="217.0" promptText="Profile Picture Path" />
+      <Label layoutX="14.0" layoutY="93.0" text="Profile Picture" textFill="WHITE" />
+      <MFXButton fx:id="btnUploadPicture" layoutX="248.0" layoutY="117.0" onAction="#handleUploadPicture" prefHeight="30.0" prefWidth="66.0" text="Upload" />
+   </children>
+</AnchorPane>

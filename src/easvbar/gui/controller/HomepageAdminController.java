@@ -1,6 +1,7 @@
 package easvbar.gui.controller;
 
 import easvbar.be.Event;
+import easvbar.be.Worker;
 import easvbar.gui.helperclases.ShowImageClass;
 import easvbar.gui.model.EventModel;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -42,6 +43,7 @@ public class HomepageAdminController {
 
     private EventModel eventModel = new EventModel();
     private ShowImageClass showImageClass = new ShowImageClass();
+    private Worker operator = new Worker();
 
     public HomepageAdminController() throws Exception {
     }
@@ -82,6 +84,7 @@ public class HomepageAdminController {
         Scene scene = new Scene(secondWindow);
         UserspageAdminController userspageAdminController = loader.getController();
         userspageAdminController.setUp();
+        userspageAdminController.setOperator(operator);
         newStage.setScene(scene);
 
         // Check if the current window is maximized
@@ -92,6 +95,9 @@ public class HomepageAdminController {
 
         newStage.show();
         currentStage.hide();
+    }
+    public void setOperator(Worker operator) {
+        this.operator = operator;
     }
     @FXML
     private void handleAdminPanel(ActionEvent actionEvent) {

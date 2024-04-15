@@ -9,6 +9,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -27,7 +28,7 @@
           <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <MFXButton fx:id="btnLogo" buttonType="RAISED" depthLevel="LEVEL1" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#handleLogo" prefHeight="58.0" prefWidth="165.0" text="Logo" />
+            <MFXButton fx:id="btnLogo" buttonType="RAISED" depthLevel="LEVEL1" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#handleLogo" prefHeight="58.0" prefWidth="165.0" styleClass="logo" />
             <MFXTextField fx:id="txtSearch" floatMode="ABOVE" maxWidth="1.7976931348623157E308" prefHeight="58.0" prefWidth="669.0" promptText="Search for a customer or personal🔎" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS" />
             <ButtonBar maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="58.0" prefWidth="385.0" GridPane.columnIndex="2">
                <buttons>
@@ -37,6 +38,9 @@
                       <MenuItem mnemonicParsing="false" onAction="#handleProfile" text="Edit Profile" />
                       <MenuItem fx:id="btnLogout" mnemonicParsing="false" onAction="#handleLogout" text="Logout" />
                     </items>
+                     <graphic>
+                        <ImageView fx:id="profileImage" fitHeight="43.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true" />
+                     </graphic>
                   </MenuButton>
                </buttons>
             </ButtonBar>

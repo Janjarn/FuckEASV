@@ -36,9 +36,10 @@ public class WorkersDAO_DB implements IWorker {
                 String password = rs.getString("WorkerPassword");
                 String role = rs.getString("WorkerRole");
                 int roleId = rs.getInt("WorkerRoleId");
+                String picture = rs.getString("WorkerPicture");
 
 
-                Worker worker = new Worker (id,name,password,role,roleId);
+                Worker worker = new Worker (id,name,password,role,roleId,picture);
                 allWorkers.add(worker);
             }
             return allWorkers;
@@ -51,7 +52,7 @@ public class WorkersDAO_DB implements IWorker {
 
     @Override
     public Worker createWorker(Worker worker) throws Exception {
-        String sql = "INSERT INTO FuckEASVBar.dbo.Worker (WorkerName, WorkerPassword, WorkerRole, WorkerRoleId) VALUES (?,?,?,?);";
+        String sql = "INSERT INTO FuckEASVBar.dbo.Worker (WorkerName, WorkerPassword, WorkerRole, WorkerRoleId, WorkerPicture) VALUES (?,?,?,?,?);";
 
         try (Connection conn = databaseConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
@@ -61,6 +62,7 @@ public class WorkersDAO_DB implements IWorker {
             stmt.setString(2,worker.getPassword());
             stmt.setString(3,worker.getRole());
             stmt.setInt(4,worker.getRoleId());
+            stmt.setString(5, worker.getPicture());
 
             // Run the specified SQL Statement
             stmt.executeUpdate();
@@ -74,7 +76,7 @@ public class WorkersDAO_DB implements IWorker {
             }
 
             // Create song object and send up the layers
-            Worker createdWorker = new Worker(id, worker.getName(), worker.getPassword(), worker.getRole(), worker.getRoleId());
+            Worker createdWorker = new Worker(id, worker.getName(), worker.getPassword(), worker.getRole(), worker.getRoleId(), worker.getPicture());
 
             return createdWorker;
         }
@@ -105,7 +107,7 @@ public class WorkersDAO_DB implements IWorker {
     @Override
     public Worker updateWorker(Worker worker) throws Exception {
         String sql = "UPDATE FuckEASVBar.dbo.Worker " +
-                "SET WorkerName = ?, WorkerPassword = ?, WorkerRole = ?, WorkerRoleId = ? "+ // Removed trailing comma
+                "SET WorkerName = ?, WorkerPassword = ?, WorkerRole = ?, WorkerRoleId = ?, WorkerPicture = ? "+ // Removed trailing comma
                 "WHERE WorkerId = ?";
 
         try (Connection conn = databaseConnector.getConnection();
@@ -114,7 +116,8 @@ public class WorkersDAO_DB implements IWorker {
             stmt.setString(2,worker.getPassword());
             stmt.setString(3,worker.getRole());
             stmt.setInt(4,worker.getRoleId());
-            stmt.setInt(5, worker.getId());
+            stmt.setString(5, worker.getPicture());
+            stmt.setInt(6, worker.getId());
             stmt.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -141,7 +144,9 @@ public class WorkersDAO_DB implements IWorker {
             if (rs.next()){
                 int id = rs.getInt("WorkerId");
                 int roleId = rs.getInt("WorkerRoleId");
-                worker = new Worker(id, workerName, workerPassword, roleId);
+                String role = rs.getString("WorkerRole");
+                String picture = rs.getString("WorkerPicture");
+                worker = new Worker(id, workerName, workerPassword, role, roleId, picture);
             }
         } catch (SQLException e) {
             e.printStackTrace();

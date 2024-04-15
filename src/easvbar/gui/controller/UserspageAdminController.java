@@ -3,6 +3,7 @@ package easvbar.gui.controller;
 import easvbar.be.Event;
 import easvbar.be.User;
 import easvbar.be.Worker;
+import easvbar.gui.helperclases.ShowImageClass;
 import easvbar.gui.model.UserModel;
 import easvbar.gui.model.WorkerModel;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -18,6 +19,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -27,6 +29,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserspageAdminController {
+    @FXML
+    private ImageView profileImage;
     @FXML
     private MFXTextField txtSearch;
     @FXML
@@ -48,17 +52,7 @@ public class UserspageAdminController {
     @FXML
     private TableColumn cclPersonalRole;
     @FXML
-    private HBox hBoxPersonal;
-    @FXML
     private TableView listPersonal;
-    @FXML
-    private Label lblPersonal;
-    @FXML
-    private HBox hBoxCustomers;
-    @FXML
-    private Label lblCustomers;
-    @FXML
-    private MenuItem btnLogout;
     @FXML
     private MenuButton btnProfile;
     @FXML
@@ -74,9 +68,12 @@ public class UserspageAdminController {
 
     private boolean aproveUsers = false;
     private boolean aprovingUsers = false;
+    private Worker operator = new Worker();
 
     public void setUp() {
         try {
+            btnLogo.getStyleClass().add("logo");
+            btnLogo.setText("");
             workerModel = new WorkerModel();
             userModel = new UserModel();
             listPersonal.setItems(workerModel.getAllWorkers());
@@ -113,6 +110,12 @@ public class UserspageAdminController {
         } catch (Exception e) {
             e.printStackTrace(); // Handle exception appropriately
         }
+    }
+    public void setOperator(Worker operator) {
+        ShowImageClass showImageClass = new ShowImageClass();
+        this.operator = operator;
+        btnProfile.setText(operator.getName());
+        profileImage.setImage(showImageClass.showImage(operator.getPicture()));
     }
     private void checkIfThereIsMorePendingUsers() {
         ObservableList<User> pendingUsers = FXCollections.observableArrayList();
@@ -311,7 +314,17 @@ public class UserspageAdminController {
     }
 
     @FXML
-    private void handleProfile(ActionEvent actionEvent) {
+    private void handleProfile(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/UpdateProfile.fxml"));
+        Parent secondWindow = loader.load();
+        Stage newStage = new Stage();
+        newStage.setTitle(operator.getName() + " | Profile");
+        Scene scene = new Scene(secondWindow);
+        UpdateProfileController controller = loader.getController();
+        controller.setOperator(operator);
+        newStage.setScene(scene);
+        newStage.showAndWait();
+        setUp();
     }
 
     @FXML

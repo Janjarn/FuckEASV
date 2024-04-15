@@ -15,3 +15,16 @@
 .list-view {
     -fx-orientation: vertical;
 }
+
+.logo {
+    /* Set the background image using the URL to the resource */
+    -fx-background-image: url("/images/easvlogo.jpg");
+    /* Set the size of the background image */
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+    /* Set any additional properties such as width, height, padding, etc. */
+    /* For example:
+    -fx-min-width: 100px;
+    -fx-min-height: 100px;
+    */
+}

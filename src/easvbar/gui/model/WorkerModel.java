@@ -38,6 +38,7 @@ public class WorkerModel {
         selectedworker.setRole(worker.getRole());
         selectedworker.setPassword(worker.getPassword());
         selectedworker.setRoleId(worker.getRoleId());
+        selectedworker.setPicture(worker.getPicture());
 
         workerManager.updateWorker(selectedworker);
     }

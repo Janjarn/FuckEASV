@@ -28,7 +28,6 @@ public class CreateUpdatePersonalController {
     private MFXButton btnCreateUpdate;
     @FXML
     private MFXButton btnCancel;
-    private TextField test;
 
     private int adminOrKoordinator = 0;
     private boolean update = false;

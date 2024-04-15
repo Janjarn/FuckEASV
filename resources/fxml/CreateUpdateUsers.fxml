@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="160.0" prefWidth="409.0" styleClass="backGround" stylesheets="@../css/MainCss.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easvbar.gui.controller.CreateUpdateUsersController">
+   <children>
+      <MFXTextField fx:id="txtName" floatMode="ABOVE" layoutX="14.0" layoutY="37.0" prefHeight="29.0" prefWidth="217.0" promptText="Enter Customers name here" />
+      <Label layoutX="14.0" layoutY="14.0" text="Customers Name" textFill="WHITE" />
+      <MFXTextField fx:id="txtLastname" floatMode="ABOVE" layoutX="14.0" layoutY="105.0" prefHeight="29.0" prefWidth="217.0" promptText="Enter Customers Lastname here" />
+      <Label layoutX="14.0" layoutY="82.0" text="Customers Lastname" textFill="WHITE" />
+      <MFXButton fx:id="btnCreateUpdate" layoutX="262.0" layoutY="105.0" onAction="#handleCreateUpdate" text="Create" />
+      <MFXButton fx:id="btnCancel" layoutX="335.0" layoutY="105.0" onAction="#handleCancel" text="Cancel" />
+   </children>
+</AnchorPane>

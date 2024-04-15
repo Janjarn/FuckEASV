@@ -1,7 +1,9 @@
 package easvbar.gui.controller;
 
 import easvbar.be.Event;
+import easvbar.be.User;
 import easvbar.be.Worker;
+import easvbar.gui.model.UserModel;
 import easvbar.gui.model.WorkerModel;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXListView;
@@ -25,29 +27,21 @@ import java.util.List;
 
 public class UserspageAdminController {
     @FXML
+    private TableView listUser;
+    @FXML
+    private TableColumn cclUserName;
+    @FXML
+    private TableColumn cclUserLastname;
+    @FXML
     private TableColumn cclPersonalName;
     @FXML
     private TableColumn cclPersonalRole;
-    @FXML
-    private MFXButton btnDeletePersonal;
-    @FXML
-    private MFXButton btnUpdatePersonal;
-    @FXML
-    private MFXButton btnCreatePersonal;
     @FXML
     private HBox hBoxPersonal;
     @FXML
     private TableView listPersonal;
     @FXML
     private Label lblPersonal;
-    @FXML
-    private MFXListView listCustomers;
-    @FXML
-    private MFXButton btnDeleteCustomer;
-    @FXML
-    private MFXButton btnUpdateCustomer;
-    @FXML
-    private MFXButton btnCreateCustomer;
     @FXML
     private HBox hBoxCustomers;
     @FXML
@@ -63,15 +57,24 @@ public class UserspageAdminController {
 
 
     private WorkerModel workerModel;
+    private UserModel userModel;
     private Worker selectedWorker = new Worker();
+    private User selectedUser = new User();
 
     public void setUp() {
         try {
             workerModel = new WorkerModel();
+            userModel = new UserModel();
             listPersonal.setItems(workerModel.getAllWorkers());
 
             cclPersonalName.setCellValueFactory(new PropertyValueFactory<>("name"));
             cclPersonalRole.setCellValueFactory(new PropertyValueFactory<>("role"));
+
+            listUser.setItems(userModel.getAllUsers());
+            System.out.println(userModel.getAllUsers());
+
+            cclUserName.setCellValueFactory(new PropertyValueFactory<>("name"));
+            cclUserLastname.setCellValueFactory(new PropertyValueFactory<>("lastname"));
 
         } catch (Exception e) {
             e.printStackTrace(); // Handle exception appropriately
@@ -118,14 +121,40 @@ public class UserspageAdminController {
 
     @FXML
     private void handleDeleteCustomer(ActionEvent actionEvent) {
+        try {
+            userModel.deleteUser(selectedUser);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
-    private void handleUpdateCustomer(ActionEvent actionEvent) {
+    private void handleUpdateCustomer(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CreateUpdateUsers.fxml"));
+        Parent secondWindow = loader.load();
+        Stage newStage = new Stage();
+        newStage.setTitle("Update User");
+        Scene scene = new Scene(secondWindow);
+        CreateUpdateUsersController controller = loader.getController();
+        controller.updateUser(selectedUser);
+
+        newStage.setScene(scene);
+        newStage.showAndWait();
+        setUp();
     }
 
     @FXML
-    private void handleCreateCustomer(ActionEvent actionEvent) {
+    private void handleCreateCustomer(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CreateUpdateUsers.fxml"));
+        Parent secondWindow = loader.load();
+        Stage newStage = new Stage();
+        newStage.setTitle("Create User");
+        Scene scene = new Scene(secondWindow);
+        CreateUpdateUsersController controller = loader.getController();
+        controller.createUser();
+        newStage.setScene(scene);
+        newStage.showAndWait();
+        setUp();
     }
 
     @FXML
@@ -198,6 +227,7 @@ public class UserspageAdminController {
 
     @FXML
     private void handleSelectUser(MouseEvent mouseEvent) {
+        selectedUser = (User) listUser.getSelectionModel().getSelectedItem();
     }
 
     @FXML

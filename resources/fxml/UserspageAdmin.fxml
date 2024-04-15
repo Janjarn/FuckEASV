@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.MFXListView?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ButtonBar?>
@@ -15,7 +14,6 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
-
 
 <BorderPane prefHeight="681.0" prefWidth="1167.0" styleClass="backGround" stylesheets="@../css/MainCss.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easvbar.gui.controller.UserspageAdminController">
    <top>
@@ -153,11 +151,15 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
                         </HBox>
-                        <MFXListView fx:id="listCustomers" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#handleSelectUser" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                        <TableView fx:id="listUser" onMouseClicked="#handleSelectUser" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                           <columns>
+                              <TableColumn fx:id="cclUserName" prefWidth="149.0" text="Name" />
+                              <TableColumn fx:id="cclUserLastname" minWidth="0.0" prefWidth="428.0" text="Last Name" />
+                           </columns>
                            <GridPane.margin>
                               <Insets right="5.0" top="5.0" />
                            </GridPane.margin>
-                        </MFXListView>
+                        </TableView>
                      </children>
                   </GridPane>
                </children>

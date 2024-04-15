@@ -105,7 +105,8 @@ public class WorkersDAO_DB implements IWorker {
     @Override
     public Worker updateWorker(Worker worker) throws Exception {
         String sql = "UPDATE FuckEASVBar.dbo.Worker " +
-                "SET WorkerName = ?, WorkerPassword = ?, WorkerRole = ?, WorkerId = ?, ";
+                "SET WorkerName = ?, WorkerPassword = ?, WorkerRole = ?, WorkerRoleId = ?, "+ // Removed trailing comma
+                "WHERE WorkerId = ?";
 
         try (Connection conn = databaseConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -113,6 +114,7 @@ public class WorkersDAO_DB implements IWorker {
             stmt.setString(2,worker.getPassword());
             stmt.setString(3,worker.getRole());
             stmt.setInt(4,worker.getRoleId());
+            stmt.setInt(5, worker.getId());
             stmt.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();

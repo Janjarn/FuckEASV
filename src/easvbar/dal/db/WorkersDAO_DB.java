@@ -105,7 +105,7 @@ public class WorkersDAO_DB implements IWorker {
     @Override
     public Worker updateWorker(Worker worker) throws Exception {
         String sql = "UPDATE FuckEASVBar.dbo.Worker " +
-                "SET WorkerName = ?, WorkerPassword = ?, WorkerRole = ?, WorkerRoleId = ?, "+ // Removed trailing comma
+                "SET WorkerName = ?, WorkerPassword = ?, WorkerRole = ?, WorkerRoleId = ? "+ // Removed trailing comma
                 "WHERE WorkerId = ?";
 
         try (Connection conn = databaseConnector.getConnection();

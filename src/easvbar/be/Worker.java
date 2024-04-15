@@ -26,6 +26,10 @@ public class Worker {
 
     }
 
+    public Worker(int i) {
+        this.id = i;
+    }
+
     public int getId() {
         return id;
     }

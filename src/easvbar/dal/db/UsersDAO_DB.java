@@ -84,7 +84,7 @@ public class UsersDAO_DB implements IUser {
     @Override
     public User deleteUser(User user) throws Exception {
 
-        String sql="DELETE FROM FuckEASVBar.dbo.User WHERE UserId = ?;";
+        String sql="DELETE FROM [FuckEASVBar].[dbo].[User] WHERE UserId = ?;";
         try (Connection conn = databaseConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql))
         {

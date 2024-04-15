@@ -28,7 +28,7 @@
         </rowConstraints>
          <children>
             <MFXButton fx:id="btnLogo" buttonType="RAISED" depthLevel="LEVEL1" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#handleLogo" prefHeight="58.0" prefWidth="165.0" text="Logo" />
-            <MFXTextField maxWidth="1.7976931348623157E308" prefHeight="58.0" prefWidth="669.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS" />
+            <MFXTextField fx:id="txtSearch" floatMode="ABOVE" maxWidth="1.7976931348623157E308" prefHeight="58.0" prefWidth="669.0" promptText="Search for a customer or personal🔎" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS" />
             <ButtonBar maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="58.0" prefWidth="385.0" GridPane.columnIndex="2">
                <buttons>
                   <MFXButton fx:id="btnEvents" buttonType="RAISED" depthLevel="LEVEL1" onAction="#handleEvents" prefHeight="53.0" prefWidth="118.0" text="Events" />
@@ -47,7 +47,7 @@
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
    </padding>
    <center>
-      <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="TOP_CENTER">
+      <GridPane gridLinesVisible="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="TOP_CENTER">
          <columnConstraints>
             <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="579.0" />
             <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="578.0" />
@@ -56,7 +56,7 @@
             <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" vgrow="ALWAYS" />
          </rowConstraints>
          <children>
-            <GridPane gridLinesVisible="true" prefHeight="613.0" prefWidth="586.0" GridPane.columnIndex="1">
+            <GridPane prefHeight="613.0" prefWidth="586.0" GridPane.columnIndex="1">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
@@ -110,7 +110,7 @@
                   </GridPane>
                </children>
             </GridPane>
-            <GridPane gridLinesVisible="true" prefHeight="613.0" prefWidth="583.0">
+            <GridPane prefHeight="613.0" prefWidth="583.0">
               <columnConstraints>
                 <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
@@ -131,12 +131,12 @@
                      <children>
                         <HBox fx:id="hBoxCustomers" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
                            <children>
-                              <MFXButton fx:id="btnCreateCustomer" onAction="#handleCreateCustomer" prefHeight="38.0" prefWidth="131.0" text="Create Customer">
+                              <MFXButton fx:id="btnCreateCustomer" onAction="#handleCreateCustomer" prefHeight="35.0" prefWidth="137.0" text="Create Customer">
                                  <HBox.margin>
                                     <Insets left="10.0" right="10.0" />
                                  </HBox.margin>
                               </MFXButton>
-                              <MFXButton fx:id="btnUpdateCustomer" onAction="#handleUpdateCustomer" prefHeight="38.0" prefWidth="137.0" text="Update Customer">
+                              <MFXButton fx:id="btnUpdateCustomer" onAction="#handleUpdateCustomer" prefHeight="35.0" prefWidth="155.0" text="Update Customer">
                                  <HBox.margin>
                                     <Insets left="10.0" right="10.0" />
                                  </HBox.margin>

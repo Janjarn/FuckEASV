@@ -158,7 +158,11 @@ public class HomepageAdminController {
     @FXML
     private void handleUpComingEvents(MouseEvent mouseEvent) {
         selectedEvent = (Event) listViewUpcomingEvents.getSelectionModel().getSelectedItem();
-        handleSelectedEvent(selectedEvent);
+        eventModel.handleSelectedEvent(selectedEvent,vboxSelectedEventInfo);
+
+        if (selectedEvent.getEventImage() != null) {
+            imageViewShowImage.setImage(showImageClass.showImage(selectedEvent.getEventImage()));
+        }
 
     }
     @FXML
@@ -166,36 +170,10 @@ public class HomepageAdminController {
         ObservableMap<?, ?> selectedMap = listViewFeaturedEvent.getSelectionModel().getSelection();
         Event events = (Event) selectedMap.get(0);
 
-        handleSelectedEvent(events);
+        eventModel.handleSelectedEvent(events,vboxSelectedEventInfo);
 
-
-    }
-
-    private void handleSelectedEvent(Event event) {
-        vboxSelectedEventInfo.getChildren().clear(); // Clear existing labels
-
-        // Create labels for each piece of event information
-        Label nameLabel = new Label("Name: " + event.getName());
-        Label startLabel = new Label("Event Start Time: " + event.getEventStart());
-        Label endLabel = new Label("Event End Time: " + event.getEventEnd());
-        Label locationLabel = new Label("Location: " + event.getLocation());
-        Label dateLabel = new Label("Date: " + event.getDate());
-        Label createdByLabel = new Label("Created By: " + event.getCreatedBy());
-
-        // Apply style class to the labels
-        nameLabel.getStyleClass().add("flowLabel");
-        startLabel.getStyleClass().add("flowLabel");
-        endLabel.getStyleClass().add("flowLabel");
-        locationLabel.getStyleClass().add("flowLabel");
-        dateLabel.getStyleClass().add("flowLabel");
-        createdByLabel.getStyleClass().add("flowLabel");
-
-        // Add labels to the FlowPane
-        vboxSelectedEventInfo.getChildren().addAll(
-                nameLabel, startLabel, endLabel, locationLabel, dateLabel, createdByLabel
-        );
-        if (event.getEventImage() != null) {
-            imageViewShowImage.setImage(showImageClass.showImage(event.getEventImage()));
+        if (events.getEventImage() != null) {
+            imageViewShowImage.setImage(showImageClass.showImage(events.getEventImage()));
         }
     }
 

@@ -84,12 +84,26 @@ public class HomepageAdminController {
             txtSearch.textProperty().addListener((observable, oldValue, newValue) -> {
                 handleSearch();
             });
+            vboxSelectedEventInfo.getChildren().clear();
         } catch (Exception e) {
             e.printStackTrace(); // Handle exception appropriately
         }
     }
+    private void handleSearch() {
+        String query = txtSearch.getText().toLowerCase().trim();
+
+        // Filter Events
+        ObservableList<Event> filteredEvents = eventModel.getAllEvents().filtered(event ->
+                event.getName().toLowerCase().contains(query) ||
+                        event.getLocation().toLowerCase().contains(query)
+        );
+
+        // Update table views with filtered results
+        listViewUpcomingEvents.setItems(filteredEvents);
+    }
     @FXML
     private void handleLogo(ActionEvent actionEvent) {
+        setUp();
     }
     @FXML
     private void handleUsers(ActionEvent actionEvent) throws IOException {
@@ -180,6 +194,9 @@ public class HomepageAdminController {
         vboxSelectedEventInfo.getChildren().addAll(
                 nameLabel, startLabel, endLabel, locationLabel, dateLabel, createdByLabel
         );
+        if (event.getEventImage() != null) {
+            imageViewShowImage.setImage(showImageClass.showImage(event.getEventImage()));
+        }
     }
 
     @FXML
@@ -194,19 +211,5 @@ public class HomepageAdminController {
         newStage.setScene(scene);
         newStage.showAndWait();
         setUp();
-    }
-
-
-    private void handleSearch() {
-        String query = txtSearch.getText().toLowerCase().trim();
-
-        // Filter Events
-        ObservableList<Event> filteredEvents = eventModel.getAllEvents().filtered(event ->
-                event.getName().toLowerCase().contains(query) ||
-                        event.getLocation().toLowerCase().contains(query)
-        );
-
-        // Update table views with filtered results
-        listViewUpcomingEvents.setItems(filteredEvents);
     }
 }

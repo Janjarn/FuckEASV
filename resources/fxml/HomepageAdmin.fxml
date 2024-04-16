@@ -88,11 +88,12 @@
                   <Priority fx:constant="ALWAYS" />
                </VBox.vgrow>
                <children>
-                  <ImageView fx:id="imageViewShowImage" fitHeight="357.0" fitWidth="731.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imageViewShowImage" fitHeight="386.0" fitWidth="869.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </ImageView>
+                  <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="3456.0" text="Featured Events" textFill="WHITE" />
                   <MFXListView fx:id="listViewFeaturedEvent" depthLevel="LEVEL1" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" onMouseClicked="#handleFeaturedEvent" prefHeight="71.0" prefWidth="368.0">
                      <VBox.margin>
                         <Insets bottom="5.0" top="5.0" />

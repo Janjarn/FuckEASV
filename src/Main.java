@@ -1,3 +1,5 @@
+import easvbar.gui.controller.HomepageAdminController;
+import easvbar.gui.controller.LoginViewController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,6 +22,8 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root));
         primaryStage.setTitle("EASV Bar");
         primaryStage.setMaximized(true);
+        LoginViewController controller = loader.getController();
+        controller.setUp();
         primaryStage.show();
     }
 }

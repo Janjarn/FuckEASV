@@ -337,6 +337,7 @@ public class UserspageAdminController {
         Scene scene = new Scene(secondWindow);
         HomepageAdminController homepageAdminController = loader.getController();
         homepageAdminController.setUp();
+        homepageAdminController.setOperator(operator);
         newStage.setScene(scene);
 
         // Check if the current window is maximized
@@ -359,6 +360,8 @@ public class UserspageAdminController {
         Scene scene = new Scene(secondWindow);
         HomepageAdminController homepageAdminController = loader.getController();
         homepageAdminController.setUp();
+
+        homepageAdminController.setOperator(operator);
         newStage.setScene(scene);
 
         // Check if the current window is maximized

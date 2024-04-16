@@ -1,6 +1,7 @@
 package easvbar.gui.controller;
 
 import easvbar.be.Event;
+import easvbar.be.User;
 import easvbar.be.Worker;
 import easvbar.gui.helperclases.ShowImageClass;
 import easvbar.gui.model.EventModel;
@@ -14,24 +15,25 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
+import javafx.scene.control.MenuButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 public class HomepageAdminController {
     @FXML
+    private ImageView profileImage;
+    @FXML
+    private MenuButton btnProfile;
+    @FXML
+    private MFXTextField txtSearch;
+    @FXML
     private ImageView imageViewShowImage;
     @FXML
     private MFXButton btnUsers;
-    @FXML
-    private MFXButton btnAdminPanel;
-    @FXML
-    private MFXButton btnLogout;
     @FXML
     private MFXButton btnLogo;
     @FXML
@@ -50,6 +52,8 @@ public class HomepageAdminController {
 
     public void setUp() {
         try {
+            btnLogo.getStyleClass().add("logo");
+            btnLogo.setText("");
             // Get all events
             List<Event> allEvents = eventModel.getAllEvents();
 
@@ -67,6 +71,11 @@ public class HomepageAdminController {
             ObservableList<Event> upcomingEvents = FXCollections.observableArrayList(allEvents);
             upcomingEvents.remove(0); // Remove the featured event
             listViewUpcomingEvents.setItems(upcomingEvents);
+
+            // Add listener to search field
+            txtSearch.textProperty().addListener((observable, oldValue, newValue) -> {
+                handleSearch();
+            });
         } catch (Exception e) {
             e.printStackTrace(); // Handle exception appropriately
         }
@@ -98,6 +107,8 @@ public class HomepageAdminController {
     }
     public void setOperator(Worker operator) {
         this.operator = operator;
+        btnProfile.setText(operator.getName());
+        profileImage.setImage(showImageClass.showImage(operator.getPicture()));
     }
     @FXML
     private void handleAdminPanel(ActionEvent actionEvent) {
@@ -113,7 +124,7 @@ public class HomepageAdminController {
         newStage.setScene(scene);
 
         // Check if the current window is maximized
-        Stage currentStage = (Stage) btnLogout.getScene().getWindow();
+        Stage currentStage = (Stage) btnProfile.getScene().getWindow();
         if (currentStage.isMaximized()) {
             newStage.setMaximized(true); // Maximize the new window
         }
@@ -130,5 +141,33 @@ public class HomepageAdminController {
     }
     @FXML
     private void handleEventInfo(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    private void handleProfile(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/UpdateProfile.fxml"));
+        Parent secondWindow = loader.load();
+        Stage newStage = new Stage();
+        newStage.setTitle(operator.getName() + " | Profile");
+        Scene scene = new Scene(secondWindow);
+        UpdateProfileController controller = loader.getController();
+        controller.setOperator(operator);
+        newStage.setScene(scene);
+        newStage.showAndWait();
+        setUp();
+    }
+
+
+    private void handleSearch() {
+        String query = txtSearch.getText().toLowerCase().trim();
+
+        // Filter Events
+        ObservableList<Event> filteredEvents = eventModel.getAllEvents().filtered(event ->
+                event.getName().toLowerCase().contains(query) ||
+                        event.getLocation().toLowerCase().contains(query)
+        );
+
+        // Update table views with filtered results
+        listViewUpcomingEvents.setItems(filteredEvents);
     }
 }

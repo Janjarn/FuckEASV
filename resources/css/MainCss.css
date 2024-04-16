@@ -28,3 +28,10 @@
     -fx-min-height: 100px;
     */
 }
+.logo2 {
+    /* Set the background image using the URL to the resource */
+    -fx-background-image: url("/images/easvlogo.png");
+    /* Set the size of the background image to stretch to fit the entire button */
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}

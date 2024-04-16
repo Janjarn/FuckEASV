@@ -80,6 +80,7 @@ public class LoginViewController {
                 Scene scene = new Scene(secondWindow);
                 KoordinatorPageController koordinatorPageController = loader.getController();
                 koordinatorPageController.setUp();
+                koordinatorPageController.setOperator(workerLogged);
                 newStage.setScene(scene);
 
                 // Check if the current window is maximized

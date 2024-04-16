@@ -10,20 +10,27 @@ import io.github.palexdev.materialfx.controls.MFXListView;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.MenuButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.List;
 
 public class HomepageAdminController {
+    @FXML
+    private VBox vboxSelectedEventInfo;
     @FXML
     private ImageView profileImage;
     @FXML
@@ -41,11 +48,12 @@ public class HomepageAdminController {
     @FXML
     private MFXListView listViewFeaturedEvent;
     @FXML
-    private MFXListView listViewUpcomingEvents;
+    private ListView listViewUpcomingEvents;
 
     private EventModel eventModel = new EventModel();
     private ShowImageClass showImageClass = new ShowImageClass();
     private Worker operator = new Worker();
+    private Event selectedEvent = new Event();
 
     public HomepageAdminController() throws Exception {
     }
@@ -135,12 +143,43 @@ public class HomepageAdminController {
     }
     @FXML
     private void handleUpComingEvents(MouseEvent mouseEvent) {
+        selectedEvent = (Event) listViewUpcomingEvents.getSelectionModel().getSelectedItem();
+        handleSelectedEvent(selectedEvent);
+
     }
     @FXML
     private void handleFeaturedEvent(MouseEvent mouseEvent) {
+        ObservableMap<?, ?> selectedMap = listViewFeaturedEvent.getSelectionModel().getSelection();
+        Event events = (Event) selectedMap.get(0);
+
+        handleSelectedEvent(events);
+
+
     }
-    @FXML
-    private void handleEventInfo(ActionEvent actionEvent) {
+
+    private void handleSelectedEvent(Event event) {
+        vboxSelectedEventInfo.getChildren().clear(); // Clear existing labels
+
+        // Create labels for each piece of event information
+        Label nameLabel = new Label("Name: " + event.getName());
+        Label startLabel = new Label("Event Start Time: " + event.getEventStart());
+        Label endLabel = new Label("Event End Time: " + event.getEventEnd());
+        Label locationLabel = new Label("Location: " + event.getLocation());
+        Label dateLabel = new Label("Date: " + event.getDate());
+        Label createdByLabel = new Label("Created By: " + event.getCreatedBy());
+
+        // Apply style class to the labels
+        nameLabel.getStyleClass().add("flowLabel");
+        startLabel.getStyleClass().add("flowLabel");
+        endLabel.getStyleClass().add("flowLabel");
+        locationLabel.getStyleClass().add("flowLabel");
+        dateLabel.getStyleClass().add("flowLabel");
+        createdByLabel.getStyleClass().add("flowLabel");
+
+        // Add labels to the FlowPane
+        vboxSelectedEventInfo.getChildren().addAll(
+                nameLabel, startLabel, endLabel, locationLabel, dateLabel, createdByLabel
+        );
     }
 
     @FXML

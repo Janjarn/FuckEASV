@@ -22,11 +22,6 @@
     /* Set the size of the background image */
     -fx-background-size: cover;
     -fx-background-repeat: no-repeat;
-    /* Set any additional properties such as width, height, padding, etc. */
-    /* For example:
-    -fx-min-width: 100px;
-    -fx-min-height: 100px;
-    */
 }
 .logo2 {
     /* Set the background image using the URL to the resource */
@@ -34,4 +29,11 @@
     /* Set the size of the background image to stretch to fit the entire button */
     -fx-background-size: 100% 100%;
     -fx-background-repeat: no-repeat;
+}
+
+/* Styles for labels */
+.flowLabel {
+    -fx-font-size: 16px;
+    -fx-background-color: white;
+    -fx-text-fill: black;
 }

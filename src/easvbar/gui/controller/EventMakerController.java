@@ -10,11 +10,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
-import javafx.scene.image.Image;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.*;
+import javafx.scene.layout.StackPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -117,6 +117,11 @@ public class EventMakerController extends BaseController implements Initializabl
 
     @FXML
     private void handleUploadPicture(ActionEvent actionEvent) {
+        FileChooser fc = new FileChooser();
+        Stage stage = (Stage) cancelBtn.getScene().getWindow();
+        File f = fc.showOpenDialog(stage);
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images",
+                "*.png", "*.jpg", "*.gif", "*.tif", "*.bmp"));
     }
 
     protected void displayError(Throwable t) {

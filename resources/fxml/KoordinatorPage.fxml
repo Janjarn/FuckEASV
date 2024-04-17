@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="background" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="714.0" prefWidth="1147.0" styleClass="backGround" stylesheets="@../css/MainCss.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easvbar.gui.controller.KoordinatorPageController">
+<BorderPane fx:id="background" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="714.0" prefWidth="1147.0" styleClass="backGround" stylesheets="@../css/MainCss.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="easvbar.gui.controller.KoordinatorPageController">
    <center>
       <GridPane alignment="TOP_CENTER" gridLinesVisible="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="627.0" prefWidth="569.0" BorderPane.alignment="BOTTOM_CENTER">
          <BorderPane.margin>
@@ -47,14 +47,16 @@
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Button fx:id="btnCreateEvent" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleCreateEventWindow" prefHeight="45.0" prefWidth="132.0" styleClass="mfx-button" text="Create Event" />
+                  <Button fx:id="btnCreateEvent" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleCreateEventWindow" prefHeight="45.0" prefWidth="132.0" styleClass="mfx-button" text="Create Event" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                   <Button fx:id="btnUpdateEvent" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleUpdateEvent" prefHeight="45.0" prefWidth="133.0" styleClass="mfx-button" text="Update Event" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                  <Button contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleDeleteEvent" prefHeight="45.0" prefWidth="134.0" styleClass="mfx-button" text="Delete Event" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="CENTER" />
+                  <Button contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleDeleteEvent" prefHeight="45.0" prefWidth="134.0" styleClass="mfx-button" text="Delete Event" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <Button contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleCreateTicket" prefHeight="45.0" prefWidth="134.0" styleClass="mfx-button" text="Create Ticket" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                </children>
             </GridPane>
          </children>

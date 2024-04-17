@@ -22,11 +22,6 @@ public class TicketController extends BaseController implements Initializable {
     private MFXCheckbox vipTicket,foodTicket,beerTicket,firstRow;
 
     public TicketController() throws Exception{
-        try {
-            ticketManager = new TicketManager();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @Override
@@ -35,7 +30,12 @@ public class TicketController extends BaseController implements Initializable {
 
     @Override
     public void setup() throws Exception {
-        ticketModel = getTicketModel();
+        try {
+            ticketManager = new TicketManager();
+            ticketModel = new TicketModel();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML

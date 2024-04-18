@@ -48,15 +48,40 @@ public class UpdateProfileController {
     }
 
     public void handleUpdate(ActionEvent actionEvent) {
-        try {
-            operator.setPassword(txtPassword.getText());
-            operator.setPicture(txtImagePath.getText());
+        if (!txtPassword.getText().isEmpty() && !txtImagePath.getText().isEmpty()) {
+            try {
+                operator.setPassword(txtPassword.getText());
+                operator.setPicture(txtImagePath.getText());
 
-            workerManager.updateWorker(operator);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            btnUpdate.getScene().getWindow().hide();
+                workerManager.updateWorker(operator);
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                btnUpdate.getScene().getWindow().hide();
+            }
+        }
+        if (!txtImagePath.getText().isEmpty()){
+            try {
+                operator.setPicture(txtImagePath.getText());
+
+                workerManager.updateWorker(operator);
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                btnUpdate.getScene().getWindow().hide();
+            }
+        }
+
+        if (!txtPassword.getText().isEmpty()){
+            try {
+                operator.setPassword(txtPassword.getText());
+
+                workerManager.updateWorker(operator);
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                btnUpdate.getScene().getWindow().hide();
+            }
         }
     }
 
@@ -130,14 +155,17 @@ public class UpdateProfileController {
         if (dragboard.hasFiles()) {
             for (File file : dragboard.getFiles()) {
                 // Construct the destination path
-                Path destinationPath = Paths.get("resources/images", file.getName());
                 try {
+                    // Construct the destination path
+                    Path destinationPath = generateUniqueFilePath(Paths.get("resources/images"), file.getName());
+
                     // Copy the file to the destination folder
                     Files.copy(file.toPath(), destinationPath);
-                    txtImagePath.setText(file.getName());
-                    background.setBackground(showImageClass.setBackGroundImage(file.getName()));
+
+                    // Updating UI
+                    txtImagePath.setText(destinationPath.getFileName().toString());
                 } catch (IOException e) {
-                    System.err.println("Error saving file " + file.getName() + ": " + e.getMessage());
+                    System.err.println("Error copying file: " + e.getMessage());
                 }
             }
         }

@@ -44,6 +44,11 @@ public class TicketModel {
         Ticket t = ticketManager.createTicket(ticket);
         tickets.add(t);
     }
+    public Ticket createTicketWithReturn(Ticket ticket) throws Exception{
+        Ticket t = ticketManager.createTicket(ticket);
+        tickets.add(t);
+        return t;
+    }
 
     public void deleteTicket(Ticket deletedTicket) throws Exception {
         ticketManager.deleteTicket(deletedTicket);

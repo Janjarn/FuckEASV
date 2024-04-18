@@ -77,22 +77,23 @@ public class TicketController extends BaseController implements Initializable {
             Ticket newTicket = new Ticket(-1, vipTicketSelected, foodTicketSelected,
                     beerTicketSelected, firstRowSelected, selectedEvent.getId());
             try {
-                ticketModel.createTicket(newTicket);
+                Ticket ticket = ticketModel.createTicketWithReturn(newTicket);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TicketSeller.fxml"));
+                Parent secondWindow = loader.load();
+                Stage newStage = new Stage();
+                Scene scene = new Scene(secondWindow);
+                TicketSellController controller = loader.getController();
+                controller.setTicketAndEvent(ticket, selectedEvent);
+                controller.fillTicketInformationAndGenerateImages(selectedEvent.getName(), selectedEvent.getLocation(),
+                        selectedEvent.getDate(), selectedEvent.getEventStart(), selectedEvent.getEventEnd(), txtUserName.getText(),
+                        txtUserLastName.getText(), selectedEvent.getId());
+
+                newStage.setScene(scene);
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TicketSeller.fxml"));
-            Parent secondWindow = loader.load();
-            Stage newStage = new Stage();
-            Scene scene = new Scene(secondWindow);
-            TicketSellController controller = loader.getController();
-            controller.setTicketAndEvent(newTicket, selectedEvent);
-            controller.fillTicketInformationAndGenerateImages(selectedEvent.getName(), selectedEvent.getLocation(),
-                    selectedEvent.getDate(), selectedEvent.getEventStart(), selectedEvent.getEventEnd(), txtUserName.getText(),
-                    txtUserLastName.getText(), selectedEvent.getId());
 
-            newStage.setScene(scene);
         } else {
             txtUserName.setPromptText("Please fill in a Customer First Name");
             txtUserLastName.setPromptText("Please fill in a Customer Last Name");

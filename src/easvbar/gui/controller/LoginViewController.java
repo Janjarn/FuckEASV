@@ -79,7 +79,7 @@ public class LoginViewController {
                 newStage.setTitle("Koordinator Page");
                 Scene scene = new Scene(secondWindow);
                 KoordinatorPageController koordinatorPageController = loader.getController();
-                koordinatorPageController.setUp();
+                koordinatorPageController.setup();
                 koordinatorPageController.setOperator(workerLogged);
                 newStage.setScene(scene);
 

@@ -82,33 +82,6 @@ public class KoordinatorPageController extends BaseController implements Initial
 
     @Override
     public void setup() throws Exception {
-    }
-
-    private void handleSearch() {
-        String query = txtSearch.getText().toLowerCase().trim();
-
-        // Filter users
-        ObservableList<Event> filteredEvents = eventModel.getAllEvents().filtered(event ->
-                event.getName().toLowerCase().contains(query) ||
-                event.getLocation().toLowerCase().contains(query) ||
-                event.getEventEnd().toLowerCase().contains(query) ||
-                event.getEventStart().toLowerCase().contains(query) ||
-                event.getDate().toLowerCase().contains(query) ||
-                event.getCreatedBy().toLowerCase().contains(query)
-        );
-
-        // Update table views with filtered results
-        tableViewEvents.setItems(filteredEvents);
-    }
-
-    public void setOperator(Worker operator) {
-        ShowImageClass showImageClass = new ShowImageClass();
-        this.operator = operator;
-        btnProfile.setText(operator.getName());
-        profileImage.setImage(showImageClass.showImage(operator.getPicture()));
-    }
-
-    public void setUp() {
         try {
             btnLogo.getStyleClass().add("logo");
             btnLogo.setText("");
@@ -135,6 +108,30 @@ public class KoordinatorPageController extends BaseController implements Initial
         }
     }
 
+    private void handleSearch() {
+        String query = txtSearch.getText().toLowerCase().trim();
+
+        // Filter users
+        ObservableList<Event> filteredEvents = eventModel.getAllEvents().filtered(event ->
+                event.getName().toLowerCase().contains(query) ||
+                event.getLocation().toLowerCase().contains(query) ||
+                event.getEventEnd().toLowerCase().contains(query) ||
+                event.getEventStart().toLowerCase().contains(query) ||
+                event.getDate().toLowerCase().contains(query) ||
+                event.getCreatedBy().toLowerCase().contains(query)
+        );
+
+        // Update table views with filtered results
+        tableViewEvents.setItems(filteredEvents);
+    }
+
+    public void setOperator(Worker operator) {
+        ShowImageClass showImageClass = new ShowImageClass();
+        this.operator = operator;
+        btnProfile.setText(operator.getName());
+        profileImage.setImage(showImageClass.showImage(operator.getPicture()));
+    }
+
 
     @FXML
     private void handleCreateEventWindow(ActionEvent actionEvent) throws Exception {
@@ -152,12 +149,12 @@ public class KoordinatorPageController extends BaseController implements Initial
         newStage.setScene(scene);
         newStage.initOwner(((Node) actionEvent.getSource()).getScene().getWindow());
         newStage.showAndWait();
-        setUp();
+        setup();
 
     }
 
     @FXML
-    private void handleUpdateEvent(ActionEvent actionEvent) throws IOException {
+    private void handleUpdateEvent(ActionEvent actionEvent) throws Exception {
         Event updateEvent = (Event) tableViewEvents.getSelectionModel().getSelectedItem();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/EventMaker.fxml"));
         Parent secondWindow = loader.load();
@@ -171,7 +168,7 @@ public class KoordinatorPageController extends BaseController implements Initial
         newStage.setScene(scene);
         newStage.initOwner(((Node) actionEvent.getSource()).getScene().getWindow());
         newStage.showAndWait();
-        setUp();
+        setup();
     }
 
     @FXML
@@ -195,7 +192,7 @@ public class KoordinatorPageController extends BaseController implements Initial
     }
 
     @FXML
-    private void handleProfile(ActionEvent actionEvent) throws IOException {
+    private void handleProfile(ActionEvent actionEvent) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/UpdateProfile.fxml"));
         Parent secondWindow = loader.load();
         Stage newStage = new Stage();
@@ -205,7 +202,7 @@ public class KoordinatorPageController extends BaseController implements Initial
         controller.setOperator(operator);
         newStage.setScene(scene);
         newStage.showAndWait();
-        setUp();
+        setOperator(operator);
     }
 
     @FXML
@@ -275,7 +272,7 @@ public class KoordinatorPageController extends BaseController implements Initial
 
     @FXML
     private void handleLogo(ActionEvent actionEvent) throws IOException {
-        setUp();
+        setOperator(operator);
     }
 
     @FXML

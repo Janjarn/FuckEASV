@@ -87,12 +87,16 @@ public class EventsDAO_DB implements IEvent {
         }
     }
     public Event deleteEvent (Event event) throws Exception {
-        String sql="DELETE FROM FuckEASVBar.dbo.Event WHERE EventId = ?;";
+        String deleteEventsql="DELETE FROM FuckEASVBar.dbo.Event WHERE EventId = ?;";
+        String deleteSharedEventsql="DELETE FROM FuckEASVBar.dbo.SharedEvents WHERE EventId = ?;";
         try (Connection conn = databaseConnector.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql))
+             PreparedStatement deleteEventstmt = conn.prepareStatement(deleteEventsql);
+             PreparedStatement deleteSharedEventstmt = conn.prepareStatement(deleteSharedEventsql))
         {
-            stmt.setInt(1,event.getId());
-            stmt.executeUpdate();
+            deleteEventstmt.setInt(1,event.getId());
+            deleteEventstmt.executeUpdate();
+            deleteSharedEventstmt.setInt(1,event.getId());
+            deleteSharedEventstmt.executeUpdate();
         }
         catch (SQLException ex)
         {

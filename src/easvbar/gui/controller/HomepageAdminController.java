@@ -1,10 +1,10 @@
 package easvbar.gui.controller;
 
 import easvbar.be.Event;
-import easvbar.be.User;
 import easvbar.be.Worker;
 import easvbar.gui.helperclases.ShowImageClass;
 import easvbar.gui.model.EventModel;
+import easvbar.gui.model.SharedEventModel;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXListView;
 import io.github.palexdev.materialfx.controls.MFXTextField;
@@ -16,12 +16,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -51,6 +51,7 @@ public class HomepageAdminController {
     private ListView listViewUpcomingEvents;
 
     private EventModel eventModel = new EventModel();
+    private SharedEventModel sharedEventModel = new SharedEventModel();
     private ShowImageClass showImageClass = new ShowImageClass();
     private Worker operator = new Worker();
     private Event selectedEvent = new Event();
@@ -158,7 +159,43 @@ public class HomepageAdminController {
     @FXML
     private void handleUpComingEvents(MouseEvent mouseEvent) {
         selectedEvent = (Event) listViewUpcomingEvents.getSelectionModel().getSelectedItem();
-        eventModel.handleSelectedEvent(selectedEvent,vboxSelectedEventInfo);
+
+        Button deleteButton = new Button("Delete Event");
+        Button addCoordinatorButton = new Button("Add A Coordinator");
+
+        vboxSelectedEventInfo.getChildren().addAll(deleteButton,addCoordinatorButton);
+        for (Label label : eventModel.handleSelectedEvent(selectedEvent)) {
+            vboxSelectedEventInfo.getChildren().addAll(label);
+        }
+
+        // Handle button actions if needed
+        deleteButton.setOnAction(event -> {
+            try {
+                eventModel.deleteEvent(selectedEvent);
+                setUp();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+
+        addCoordinatorButton.setOnAction(event -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AddSharedEvent.fxml"));
+                Parent secondWindow = loader.load();
+                Stage newStage = new Stage();
+                newStage.setTitle(selectedEvent.getName() + " | Invite Coordinators");
+                Scene scene = new Scene(secondWindow);
+                AddSharedEventController controller = loader.getController();
+                controller.setUp(selectedEvent);
+                newStage.setScene(scene);
+                newStage.showAndWait();
+                setUp();
+
+            }  catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         if (selectedEvent.getEventImage() != null) {
             imageViewShowImage.setImage(showImageClass.showImage(selectedEvent.getEventImage()));
@@ -169,8 +206,42 @@ public class HomepageAdminController {
     private void handleFeaturedEvent(MouseEvent mouseEvent) {
         ObservableMap<?, ?> selectedMap = listViewFeaturedEvent.getSelectionModel().getSelection();
         Event events = (Event) selectedMap.get(0);
+        // Create buttons
+        Button deleteButton = new Button("Delete Event");
+        Button addCoordinatorButton = new Button("Add A Coordinator");
 
-        eventModel.handleSelectedEvent(events,vboxSelectedEventInfo);
+        vboxSelectedEventInfo.getChildren().addAll(deleteButton,addCoordinatorButton);
+        for (Label label : eventModel.handleSelectedEvent(events)) {
+            vboxSelectedEventInfo.getChildren().addAll(label);
+        }
+
+        // Handle button actions if needed
+        deleteButton.setOnAction(event -> {
+            try {
+                eventModel.deleteEvent(events);
+                setUp();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        addCoordinatorButton.setOnAction(event -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AddSharedEvent.fxml"));
+                Parent secondWindow = loader.load();
+                Stage newStage = new Stage();
+                newStage.setTitle(events.getName() + " | Invite Coordinators");
+                Scene scene = new Scene(secondWindow);
+                AddSharedEventController controller = loader.getController();
+                controller.setUp(events);
+                newStage.setScene(scene);
+                newStage.showAndWait();
+                setUp();
+
+            }  catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         if (events.getEventImage() != null) {
             imageViewShowImage.setImage(showImageClass.showImage(events.getEventImage()));

@@ -15,10 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -222,9 +219,34 @@ public class KoordinatorPageController extends BaseController implements Initial
     }
     @FXML
     private void handleSelectedEvent(MouseEvent mouseEvent) {
+        vboxEventInfo.getChildren().clear();
         Event selectedEvent = (Event) tableViewEvents.getSelectionModel().getSelectedItem();
         background.setBackground(showImageClass.setBackGroundImage(selectedEvent.getEventImage()));
-        eventModel.handleSelectedEvent(selectedEvent,vboxEventInfo);
+
+        Button addCoordinatorButton = new Button("Add A Coordinator");
+
+        vboxEventInfo.getChildren().addAll(addCoordinatorButton);
+        for (Label label : eventModel.handleSelectedEvent(selectedEvent)) {
+            vboxEventInfo.getChildren().addAll(label);
+        }
+
+        addCoordinatorButton.setOnAction(event -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AddSharedEvent.fxml"));
+                Parent secondWindow = loader.load();
+                Stage newStage = new Stage();
+                newStage.setTitle(selectedEvent.getName() + " | Invite Coordinators");
+                Scene scene = new Scene(secondWindow);
+                AddSharedEventController controller = loader.getController();
+                controller.setUp(selectedEvent);
+                newStage.setScene(scene);
+                newStage.showAndWait();
+                setUp();
+
+            }  catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     @FXML

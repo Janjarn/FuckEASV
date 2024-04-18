@@ -94,13 +94,7 @@ public class Worker {
 
     @Override
     public String toString() {
-        return "Worker{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                ", role='" + role + '\'' +
-                ", roleId=" + roleId +
-                ", picture='" + picture + '\'' +
-                '}';
+        return
+                name;
     }
 }

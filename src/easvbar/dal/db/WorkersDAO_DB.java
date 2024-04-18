@@ -89,12 +89,16 @@ public class WorkersDAO_DB implements IWorker {
     @Override
     public Worker deleteWorker(Worker worker) throws Exception {
 
-        String sql="DELETE FROM FuckEASVBar.dbo.Worker WHERE WorkerId = ?;";
+        String deleteWorkersql="DELETE FROM FuckEASVBar.dbo.Worker WHERE WorkerId = ?;";
+        String deleteSharedEventsql="DELETE FROM FuckEASVBar.dbo.SharedEvents WHERE WorkerId = ?;";
         try (Connection conn = databaseConnector.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql))
+             PreparedStatement deleteWorkerstmt = conn.prepareStatement(deleteWorkersql);
+             PreparedStatement deleteSharedEventstmt = conn.prepareStatement(deleteSharedEventsql))
         {
-            stmt.setInt(1,worker.getId());
-            stmt.executeUpdate();
+            deleteWorkerstmt.setInt(1,worker.getId());
+            deleteWorkerstmt.executeUpdate();
+            deleteSharedEventstmt.setInt(1,worker.getId());
+            deleteSharedEventstmt.executeUpdate();
         }
         catch (SQLException ex)
         {

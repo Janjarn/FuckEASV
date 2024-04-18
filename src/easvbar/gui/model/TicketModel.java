@@ -1,9 +1,26 @@
 package easvbar.gui.model;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 import easvbar.be.Ticket;
 import easvbar.bll.TicketManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
+import net.sourceforge.barbecue.Barcode;
+import net.sourceforge.barbecue.BarcodeFactory;
+import net.sourceforge.barbecue.BarcodeImageHandler;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.Base64;
 
 public class TicketModel {
     private Ticket selectedTicket;
@@ -46,5 +63,69 @@ public class TicketModel {
 
     public void setSelectedTicket(Ticket selectedTicket) {
         this.selectedTicket = selectedTicket;
+    }
+
+
+    public String generateQRCode(Ticket ticket) throws IOException {
+        String qrCode = null;
+        try {
+            QRCodeWriter qrCodeWriter = new QRCodeWriter();
+            BitMatrix bitMatrix = qrCodeWriter.encode("Ticket ID: " + ticket.getTicketId(), BarcodeFormat.QR_CODE, 200, 200);
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            MatrixToImageWriter.writeToStream(bitMatrix, "PNG", outputStream);
+            qrCode = Base64.getEncoder().encodeToString(outputStream.toByteArray());
+        } catch (WriterException | IOException e) {
+            e.printStackTrace();
+        }
+        return qrCode;
+    }
+
+    public Image convertBase64ToImageQR(String qrCodeBase64) throws IOException {
+        // Decode the Base64 string to byte array
+        byte[] qrCodeBytes = Base64.getDecoder().decode(qrCodeBase64);
+
+        // Convert byte array to JavaFX Image
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(qrCodeBytes);
+        BufferedImage bufferedImage = ImageIO.read(byteArrayInputStream);
+        Image qrCodeImage = SwingFXUtils.toFXImage(bufferedImage, null);
+
+        return qrCodeImage;
+    }
+
+
+    public String generateBarcode(Ticket ticket) throws IOException {
+        String barcodeBase64 = null;
+        try {
+            // Create the barcode
+            Barcode barcode = BarcodeFactory.createCode128("Ticket ID: " + ticket.getTicketId());
+
+            // Scale the barcode
+            barcode.setBarWidth(2);
+            barcode.setBarHeight(50);
+
+            // Convert the barcode to image
+            BufferedImage bufferedImage = BarcodeImageHandler.getImage(barcode);
+
+            // Convert the image to Base64 string
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            ImageIO.write(bufferedImage, "png", outputStream);
+            barcodeBase64 = Base64.getEncoder().encodeToString(outputStream.toByteArray());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return barcodeBase64;
+    }
+
+    // Convert Base64 string to JavaFX Image
+    public Image convertBase64ToImageBC(String barcodeBase64) throws IOException {
+        // Decode the Base64 string to byte array
+        byte[] barcodeBytes = Base64.getDecoder().decode(barcodeBase64);
+
+        // Convert byte array to JavaFX Image
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(barcodeBytes);
+        BufferedImage bufferedImage = ImageIO.read(byteArrayInputStream);
+        Image barcodeImage = SwingFXUtils.toFXImage(bufferedImage, null);
+
+        return barcodeImage;
     }
 }

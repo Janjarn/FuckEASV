@@ -69,7 +69,7 @@ public class UpdateProfileController {
         fileChooser.setTitle("Select Image File");
 
         // Set the initial directory for the FileChooser (optional)
-        File initialDirectory = new File(System.getProperty("user.home")); // For example, start from user's home directory
+        File initialDirectory = new File(System.getProperty("user.home"));
         fileChooser.setInitialDirectory(initialDirectory);
 
         // Add filters to only allow certain types of files to be selected (optional)
@@ -89,7 +89,7 @@ public class UpdateProfileController {
                 // Copy the file to the destination folder
                 Files.copy(selectedFile.toPath(), destinationPath);
 
-                // Optionally, update your UI elements accordingly
+                // Updating UI
                 txtImagePath.setText(destinationPath.getFileName().toString());
                 background.setBackground(showImageClass.setBackGroundImage(destinationPath.getFileName().toString()));
             } catch (IOException e) {

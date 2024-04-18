@@ -257,6 +257,9 @@ public class KoordinatorPageController extends BaseController implements Initial
                 Stage newStage = new Stage();
                 newStage.setTitle("Create a ticket for | " + selectedEvent.getName());
                 Scene scene = new Scene(secondWindow);
+                TicketController controller = loader.getController();
+                controller.setEvent(selectedEvent);
+                controller.setup();
                 newStage.setScene(scene);
                 newStage.showAndWait();
 

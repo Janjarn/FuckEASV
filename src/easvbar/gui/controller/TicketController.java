@@ -66,32 +66,37 @@ public class TicketController extends BaseController implements Initializable {
 
     @FXML
     private void handleCreateTicket(javafx.event.ActionEvent actionEvent) throws Exception {
-        boolean vipTicketSelected = vipTicket.isSelected();
-        boolean foodTicketSelected = foodTicket.isSelected();
-        boolean beerTicketSelected = beerTicket.isSelected();
-        boolean firstRowSelected = firstRow.isSelected();
+        if (!txtUserName.getText().isEmpty() && !txtUserLastName.getText().isEmpty()) {
+            boolean vipTicketSelected = vipTicket.isSelected();
+            boolean foodTicketSelected = foodTicket.isSelected();
+            boolean beerTicketSelected = beerTicket.isSelected();
+            boolean firstRowSelected = firstRow.isSelected();
 
-        Stage stage = (Stage) createTicket.getScene().getWindow();
-        stage.close();
-        Ticket newTicket = new Ticket(-1, vipTicketSelected, foodTicketSelected,
-                beerTicketSelected, firstRowSelected,selectedEvent.getId());
-        try {
-            ticketModel.createTicket(newTicket);
-        } catch (Exception e) {
-            e.printStackTrace();
+            Stage stage = (Stage) createTicket.getScene().getWindow();
+            stage.close();
+            Ticket newTicket = new Ticket(-1, vipTicketSelected, foodTicketSelected,
+                    beerTicketSelected, firstRowSelected, selectedEvent.getId());
+            try {
+                ticketModel.createTicket(newTicket);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TicketSeller.fxml"));
+            Parent secondWindow = loader.load();
+            Stage newStage = new Stage();
+            Scene scene = new Scene(secondWindow);
+            TicketSellController controller = loader.getController();
+            controller.setTicketAndEvent(newTicket, selectedEvent);
+            controller.fillTicketInformationAndGenerateImages(selectedEvent.getName(), selectedEvent.getLocation(),
+                    selectedEvent.getDate(), selectedEvent.getEventStart(), selectedEvent.getEventEnd(), txtUserName.getText(),
+                    txtUserLastName.getText(), selectedEvent.getId());
+
+            newStage.setScene(scene);
+        } else {
+            txtUserName.setPromptText("Please fill in a Customer First Name");
+            txtUserLastName.setPromptText("Please fill in a Customer Last Name");
         }
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TicketSeller.fxml"));
-        Parent secondWindow = loader.load();
-        Stage newStage = new Stage();
-        Scene scene = new Scene(secondWindow);
-        TicketSellController controller = loader.getController();
-        controller.setTicketAndEvent(newTicket, selectedEvent);
-        controller.fillTicketInformationAndGenerateImages(selectedEvent.getName(), selectedEvent.getLocation(),
-                selectedEvent.getDate(), selectedEvent.getEventStart(), selectedEvent.getEventEnd(), txtUserName.getText(),
-                txtUserLastName.getText(), selectedEvent.getId());
-
-        newStage.setScene(scene);
     }
 
     public void handleCancelTicket() {

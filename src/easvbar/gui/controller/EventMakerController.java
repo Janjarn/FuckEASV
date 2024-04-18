@@ -1,6 +1,7 @@
 package easvbar.gui.controller;
 
 import easvbar.be.Event;
+import easvbar.be.Worker;
 import easvbar.gui.helperclases.ShowImageClass;
 import easvbar.gui.model.EventMakerModel;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -39,6 +40,7 @@ public class EventMakerController extends BaseController implements Initializabl
     private String errorText;
     private Event selectedEvent;
     private ShowImageClass showImageClass;
+    private Worker operator = new Worker();
 
 
     @Override
@@ -53,6 +55,11 @@ public class EventMakerController extends BaseController implements Initializabl
 
     @Override
     public void setup() throws Exception {
+        eventCreatedBy.setText(operator.getName());
+    }
+
+    public void setOperator(Worker operator) {
+        this.operator = operator;
     }
 
     public void updateEvent(Event event) {
@@ -71,41 +78,81 @@ public class EventMakerController extends BaseController implements Initializabl
 
 
     }
+    private Boolean checkIfAbleToCreateOrUpdate() {
+        if (eventName.getText().isEmpty() || eventDescription.getText().isEmpty() || eventGuide.getText().isEmpty() ||
+            eventStart.getText().isEmpty() || eventLocation.getText().isEmpty() || eventDate == null || eventEnd.getText().isEmpty()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    private void missingInformation() {
+        if (eventName.getText().isEmpty()) {
+            eventName.setPromptText("Please fill in a name");
+        }
+        if (eventStart.getText().isEmpty()) {
+            eventStart.setPromptText("Please fill in a Start time");
+        }
+
+        if (eventGuide.getText().isEmpty()) {
+            eventGuide.setPromptText("Please fill in a Guide to get to Location");
+        }
+
+        if (eventEnd.getText().isEmpty()) {
+            eventEnd.setPromptText("Please fill in a End time");
+        }
+
+        if (eventLocation.getText().isEmpty()) {
+            eventLocation.setPromptText("Please fill in a Location");
+        }
+
+        if (eventDescription.getText().isEmpty()) {
+            eventDescription.setPromptText("Please fill in a Description");
+        }
+
+        if (eventDate == null) {
+            eventDate.setPromptText("Please select a date");
+        }
+
+    }
 
     @FXML
     private void handleCreateEvent(ActionEvent actionEvent) throws Exception {
-        if (createBtn.equals("Update")) {
-            try {
-                selectedEvent.setName(eventName.getText());
-                selectedEvent.setDate(String.valueOf(eventDate.getValue()));
-                selectedEvent.setEventEnd(eventEnd.getText());
-                selectedEvent.setEventStart(eventStart.getText());
-                selectedEvent.setLocation(eventLocation.getText());
-                selectedEvent.setCreatedBy(eventCreatedBy.getText());
-                selectedEvent.setEventImage(eventFilePath.getText());
-                selectedEvent.setEventGuide(eventGuide.getText());
-                selectedEvent.setEventDescription(eventDescription.getText());
+        if (checkIfAbleToCreateOrUpdate() == true) {
+            if (createBtn.equals("Update")) {
+                try {
+                    selectedEvent.setName(eventName.getText());
+                    selectedEvent.setDate(String.valueOf(eventDate.getValue()));
+                    selectedEvent.setEventEnd(eventEnd.getText());
+                    selectedEvent.setEventStart(eventStart.getText());
+                    selectedEvent.setLocation(eventLocation.getText());
+                    selectedEvent.setCreatedBy(eventCreatedBy.getText());
+                    selectedEvent.setEventImage(eventFilePath.getText());
+                    selectedEvent.setEventGuide(eventGuide.getText());
+                    selectedEvent.setEventDescription(eventDescription.getText());
 
-                eventMakerModel.updateEvent(selectedEvent);
-            }
-            catch (Exception e) {
-                displayError(e);
-                e.printStackTrace();
-            } finally {
-                createBtn.getScene().getWindow().hide();
+                    eventMakerModel.updateEvent(selectedEvent);
+                } catch (Exception e) {
+                    displayError(e);
+                    e.printStackTrace();
+                } finally {
+                    createBtn.getScene().getWindow().hide();
+                }
+            } else {
+                Event event = new Event(-1, eventName.getText(), eventStart.getText(), eventEnd.getText(),
+                        eventLocation.getText(), eventDate.getValue().toString(), eventCreatedBy.getText(),
+                        eventFilePath.getText(), eventGuide.getText(), eventDescription.getText());
+                try {
+                    eventMakerModel.createEvent(event);
+                } catch (Exception e) {
+                    displayError(e);
+                    e.printStackTrace();
+                } finally {
+                    createBtn.getScene().getWindow().hide();
+                }
             }
         } else {
-            Event event = new Event(-1, eventName.getText(), eventStart.getText(), eventEnd.getText(),
-                    eventLocation.getText(), eventDate.getValue().toString(), eventCreatedBy.getText(),
-                    eventFilePath.getText(), eventGuide.getText(), eventDescription.getText());
-            try {
-                eventMakerModel.createEvent(event);
-            } catch (Exception e) {
-                displayError(e);
-                e.printStackTrace();
-            } finally {
-                createBtn.getScene().getWindow().hide();
-            }
+            missingInformation();
         }
     }
 

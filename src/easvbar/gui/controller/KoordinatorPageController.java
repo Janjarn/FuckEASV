@@ -146,6 +146,7 @@ public class KoordinatorPageController extends BaseController implements Initial
         Scene scene = new Scene(secondWindow);
 
         EventMakerController eventMakerController = loader.getController();
+        eventMakerController.setOperator(operator);
         eventMakerController.setup();
 
         newStage.setScene(scene);

@@ -1,17 +1,14 @@
 package easvbar.gui.controller;
 
-import easvbar.be.Event;
 import easvbar.be.User;
 import easvbar.be.Worker;
 import easvbar.gui.helperclases.ShowImageClass;
 import easvbar.gui.model.UserModel;
 import easvbar.gui.model.WorkerModel;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXListView;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,7 +18,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -65,10 +61,15 @@ public class UserspageAdminController {
     private UserModel userModel;
     private Worker selectedWorker = new Worker(-1);
     private User selectedUser = new User(-1);
-
-    private boolean aproveUsers = false;
-    private boolean aprovingUsers = false;
     private Worker operator = new Worker();
+    private String createCustomer = "Create Customer";
+    private String updateCustomer = "Update Customer";
+    private String deleteCustomer = "Delete Customer";
+    private String pendingCreate = "Approve";
+    private String pendingUpdate = "Remove";
+    private String pendingDelete = "Go Back";
+    private String waiting = "Waiting for approval";
+    private String selectCustomer = "Select a Customer";
 
     public void setUp() {
         try {
@@ -80,9 +81,6 @@ public class UserspageAdminController {
 
             cclPersonalName.setCellValueFactory(new PropertyValueFactory<>("name"));
             cclPersonalRole.setCellValueFactory(new PropertyValueFactory<>("role"));
-            aprovingUsers = false;
-            aproveUsers = false;
-
             List<User> pendingUsers = new ArrayList<>();
             ObservableList<User> approvedUsers = FXCollections.observableArrayList();
             for (User user : userModel.getAllUsers()) {
@@ -103,8 +101,7 @@ public class UserspageAdminController {
             });
 
             if (!pendingUsers.isEmpty()) {
-                btnUpdateCustomer.setText("Waiting for approval");
-                aproveUsers = true;
+                btnUpdateCustomer.setText(waiting);
             }
 
         } catch (Exception e) {
@@ -125,11 +122,9 @@ public class UserspageAdminController {
             }
         }
         if (pendingUsers.isEmpty()) {
-            btnDeleteCustomer.setText("Delete Customer");
-            btnUpdateCustomer.setText("Update Customer");
-            btnCreateCustomer.setText("Create Customers");
-            aproveUsers = false;
-            aprovingUsers = false;
+            btnDeleteCustomer.setText(deleteCustomer);
+            btnUpdateCustomer.setText(updateCustomer);
+            btnCreateCustomer.setText(createCustomer);
             setUp();
         }
         if (!pendingUsers.isEmpty()) {
@@ -208,7 +203,7 @@ public class UserspageAdminController {
 
     @FXML
     private void handleDeleteCustomer(ActionEvent actionEvent) {
-        if (aprovingUsers == false) {
+        if (btnDeleteCustomer.getText().equals(deleteCustomer)) {
             try {
                 userModel.deleteUser(selectedUser);
                 selectedUser = new User(-1);
@@ -217,7 +212,7 @@ public class UserspageAdminController {
                 throw new RuntimeException(e);
             }
         }
-        else if (aprovingUsers == true) {
+        if (btnDeleteCustomer.getText().equals(pendingDelete)) {
             checkIfThereIsMorePendingUsers();
             setUp();
         }
@@ -225,20 +220,14 @@ public class UserspageAdminController {
 
     @FXML
     private void handleUpdateCustomer(ActionEvent actionEvent) throws IOException {
-        if (aprovingUsers == false) {
-            if (aproveUsers == true) {
-
+        if (btnUpdateCustomer.getText().equals(waiting)) {
                 checkIfThereIsMorePendingUsers();
 
-                btnCreateCustomer.setText("Approve");
-                btnUpdateCustomer.setText("Remove");
-                btnDeleteCustomer.setText("Go back");
-                aprovingUsers = true;
-
-
-            }
+                btnCreateCustomer.setText(pendingCreate);
+                btnUpdateCustomer.setText(pendingUpdate);
+                btnDeleteCustomer.setText(pendingDelete);
         }
-        if (aprovingUsers == true) {
+        if (btnUpdateCustomer.equals(pendingUpdate)) {
             try {
                 userModel.deleteUser(selectedUser);
                 checkIfThereIsMorePendingUsers();
@@ -247,29 +236,28 @@ public class UserspageAdminController {
                 throw new RuntimeException(e);
             }
         }
-        else {
-            if (selectedUser.getId() == -1) {
-                btnUpdateCustomer.setText("Select a Customer");
-            } else {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CreateUpdateUsers.fxml"));
-                Parent secondWindow = loader.load();
-                Stage newStage = new Stage();
-                newStage.setTitle("Update User");
-                Scene scene = new Scene(secondWindow);
-                CreateUpdateUsersController controller = loader.getController();
-                controller.updateUser(selectedUser);
+        if (selectedUser.getId() == -1) {
+            btnUpdateCustomer.setText("Select a Customer");
+        }
+        if (btnUpdateCustomer.getText().equals(updateCustomer)){
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CreateUpdateUsers.fxml"));
+            Parent secondWindow = loader.load();
+            Stage newStage = new Stage();
+            newStage.setTitle("Update User");
+            Scene scene = new Scene(secondWindow);
+            CreateUpdateUsersController controller = loader.getController();
+            controller.updateUser(selectedUser);
 
-                newStage.setScene(scene);
-                newStage.showAndWait();
-                selectedUser = new User(-1);
-                setUp();
-            }
+            newStage.setScene(scene);
+            newStage.showAndWait();
+            selectedUser = new User(-1);
+            setUp();
         }
     }
 
     @FXML
     private void handleCreateCustomer(ActionEvent actionEvent) throws IOException {
-        if (aprovingUsers = false) {
+        if (btnCreateCustomer.getText().equals(createCustomer)) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CreateUpdateUsers.fxml"));
             Parent secondWindow = loader.load();
             Stage newStage = new Stage();
@@ -281,7 +269,7 @@ public class UserspageAdminController {
             newStage.showAndWait();
             setUp();
         }
-        else if (aprovingUsers = true) {
+        if (btnCreateCustomer.getText().equals(pendingCreate)) {
             try {
                 selectedUser.setPending(2);
 
@@ -377,10 +365,8 @@ public class UserspageAdminController {
     @FXML
     private void handleSelectUser(MouseEvent mouseEvent) {
         selectedUser = (User) listUser.getSelectionModel().getSelectedItem();
-        System.out.println(selectedUser);
-        if (aprovingUsers == false || aproveUsers == false) {
-            btnUpdateCustomer.setText("Update Customer");
-            aproveUsers = false;
+        if (btnUpdateCustomer.getText().equals(waiting) || btnUpdateCustomer.getText().equals(selectCustomer)) {
+            btnUpdateCustomer.setText(updateCustomer);
         }
 
     }

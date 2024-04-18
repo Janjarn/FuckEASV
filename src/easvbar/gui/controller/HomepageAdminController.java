@@ -163,6 +163,7 @@ public class HomepageAdminController {
         Button deleteButton = new Button("Delete Event");
         Button addCoordinatorButton = new Button("Add A Coordinator");
 
+        vboxSelectedEventInfo.getChildren().clear();
         vboxSelectedEventInfo.getChildren().addAll(deleteButton,addCoordinatorButton);
         for (Label label : eventModel.handleSelectedEvent(selectedEvent)) {
             vboxSelectedEventInfo.getChildren().addAll(label);
@@ -209,7 +210,7 @@ public class HomepageAdminController {
         // Create buttons
         Button deleteButton = new Button("Delete Event");
         Button addCoordinatorButton = new Button("Add A Coordinator");
-
+        vboxSelectedEventInfo.getChildren().clear();
         vboxSelectedEventInfo.getChildren().addAll(deleteButton,addCoordinatorButton);
         for (Label label : eventModel.handleSelectedEvent(events)) {
             vboxSelectedEventInfo.getChildren().addAll(label);

@@ -2,23 +2,32 @@ package easvbar.gui.controller;
 
 import easvbar.be.Event;
 import easvbar.be.Ticket;
+import easvbar.be.User;
 import easvbar.bll.TicketManager;
 import easvbar.gui.model.TicketModel;
+import easvbar.gui.model.UserModel;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXCheckbox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class TicketController extends BaseController implements Initializable {
+    @FXML
+    private ListView listUsers;
     @FXML
     private MFXTextField txtUserName;
     @FXML
@@ -33,6 +42,7 @@ public class TicketController extends BaseController implements Initializable {
     private MFXTextField txtEventDate;
     private TicketManager ticketManager;
     private TicketModel ticketModel;
+    private UserModel userModel = new UserModel();
     private Event selectedEvent = new Event();
     @FXML
     private MFXButton createTicket,cancelTicket;
@@ -56,6 +66,8 @@ public class TicketController extends BaseController implements Initializable {
             txtEventLocation.setText(selectedEvent.getLocation());
             txtEventStart.setText(selectedEvent.getEventStart());
 
+            listUsers.setItems(userModel.getAllUsers());
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -76,6 +88,26 @@ public class TicketController extends BaseController implements Initializable {
             stage.close();
             Ticket newTicket = new Ticket(-1, vipTicketSelected, foodTicketSelected,
                     beerTicketSelected, firstRowSelected, selectedEvent.getId());
+            ObservableList<User> allUsers = FXCollections.observableArrayList();
+            allUsers.addAll(userModel.getAllUsers());
+            User newUser = new User();
+            newUser.setName(txtUserName.getText());
+            newUser.setLastname(txtUserLastName.getText());
+            newUser.setPending(1);
+
+            boolean userExists = false;
+
+            for (User user : allUsers) {
+                if (Objects.equals(user.getName(), newUser.getName()) && Objects.equals(user.getLastname(), newUser.getLastname())) {
+                    userExists = true; // User with same name and last name found
+                    break; // Exit the loop, no need to check further
+                }
+            }
+
+            if (!userExists) {
+                userModel.createUser(newUser); // Add the new user only if no user with same name and last name exists
+            }
+
             try {
                 Ticket ticket = ticketModel.createTicketWithReturn(newTicket);
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TicketSeller.fxml"));
@@ -100,8 +132,16 @@ public class TicketController extends BaseController implements Initializable {
         }
     }
 
-    public void handleCancelTicket() {
+    @FXML
+    private void handleCancelTicket() {
         Stage stage = (Stage) cancelTicket.getScene().getWindow();
         stage.close();
+    }
+
+    @FXML
+    private void handleSelectedUser(MouseEvent mouseEvent) {
+        User user = (User) listUsers.getSelectionModel().getSelectedItem();
+        txtUserName.setText(user.getName());
+        txtUserLastName.setText(user.getLastname());
     }
 }

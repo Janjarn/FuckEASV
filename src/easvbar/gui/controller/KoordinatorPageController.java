@@ -223,9 +223,8 @@ public class KoordinatorPageController extends BaseController implements Initial
 
         Button addCoordinatorButton = new Button("Add A Coordinator");
         Button addTicket = new Button("Add A Ticket");
-        Button sellTicket = new Button("Sell A Ticket");
 
-        vboxEventInfo.getChildren().addAll(addCoordinatorButton, addTicket , sellTicket);
+        vboxEventInfo.getChildren().addAll(addCoordinatorButton, addTicket);
         for (Label label : eventModel.handleSelectedEvent(selectedEvent)) {
             vboxEventInfo.getChildren().addAll(label);
         }
@@ -263,9 +262,6 @@ public class KoordinatorPageController extends BaseController implements Initial
             }  catch (Exception e) {
                 throw new RuntimeException(e);
             }
-        });
-
-        sellTicket.setOnAction(event -> {
         });
 
     }

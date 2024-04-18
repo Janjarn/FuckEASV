@@ -25,37 +25,47 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <MFXTextField fx:id="eventName" maxWidth="1.7976931348623157E308" prefHeight="49.0" prefWidth="653.0" promptText="Name" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER">
+            <MFXTextField fx:id="eventName" floatMode="ABOVE" maxWidth="1.7976931348623157E308" prefHeight="49.0" prefWidth="653.0" promptText="Name" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets left="20.0" right="20.0" />
                </GridPane.margin>
             </MFXTextField>
-            <MFXTextField fx:id="eventStart" maxWidth="1.7976931348623157E308" prefHeight="49.0" prefWidth="653.0" promptText="EventStart" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER">
+            <MFXTextField fx:id="eventLocation" floatMode="ABOVE" maxWidth="1.7976931348623157E308" prefHeight="49.0" prefWidth="653.0" promptText="Location" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets bottom="75.0" left="20.0" right="20.0" />
                </GridPane.margin>
             </MFXTextField>
-            <MFXTextField fx:id="eventCreatedBy" maxWidth="1.7976931348623157E308" prefHeight="49.0" prefWidth="653.0" promptText="Created By" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-               <GridPane.margin>
-                  <Insets left="20.0" right="20.0" />
-               </GridPane.margin>
-            </MFXTextField>
-            <MFXTextField fx:id="eventLocation" maxWidth="1.7976931348623157E308" prefHeight="49.0" prefWidth="653.0" promptText="Location" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-               <GridPane.margin>
-                  <Insets left="20.0" right="20.0" />
-               </GridPane.margin>
-            </MFXTextField>
-            <MFXTextField fx:id="eventEnd" maxWidth="1.7976931348623157E308" prefHeight="49.0" prefWidth="653.0" promptText="EventEnd" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER">
+            <MFXTextField fx:id="eventGuide" floatMode="ABOVE" maxWidth="1.7976931348623157E308" prefHeight="49.0" prefWidth="653.0" promptText="Location Guide" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="20.0" right="20.0" top="75.0" />
                </GridPane.margin>
             </MFXTextField>
-            <DatePicker fx:id="eventDate" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="503.0" promptText="Date YY-MM-DD" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <MFXTextField fx:id="eventFilePath" floatMode="ABOVE" maxWidth="1.7976931348623157E308" onDragDropped="#handleOnDragDropped" onDragOver="#handleOnDragOver" promptText="Image File Path" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="20.0" right="20.0" />
+               </GridPane.margin>
+            </MFXTextField>
+            <MFXTextField fx:id="eventDescription" floatMode="ABOVE" maxWidth="1.7976931348623157E308" prefHeight="229.0" prefWidth="527.0" promptText="Description" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </GridPane.margin>
+            </MFXTextField>
+            <MFXTextField fx:id="eventStart" floatMode="ABOVE" maxWidth="1.7976931348623157E308" prefHeight="49.0" prefWidth="653.0" promptText="EventStart" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets bottom="75.0" left="20.0" right="20.0" />
+               </GridPane.margin>
+            </MFXTextField>
+            <MFXTextField fx:id="eventEnd" floatMode="ABOVE" maxWidth="1.7976931348623157E308" prefHeight="49.0" prefWidth="653.0" promptText="EventEnd" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets left="20.0" right="20.0" top="75.0" />
+               </GridPane.margin>
+            </MFXTextField>
+            <DatePicker fx:id="eventDate" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="503.0" promptText="Date DD-MM-YY" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets left="20.0" right="20.0" />
                </GridPane.margin>
             </DatePicker>
-            <MFXTextField fx:id="eventFilePath" maxWidth="1.7976931348623157E308" onDragDropped="#handleOnDragDropped" onDragOver="#handleOnDragOver" promptText="Image File Path" GridPane.rowIndex="2">
+            <MFXTextField fx:id="eventCreatedBy" floatMode="ABOVE" maxWidth="1.7976931348623157E308" prefHeight="49.0" prefWidth="653.0" promptText="Created By" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets left="20.0" right="20.0" />
                </GridPane.margin>
@@ -68,14 +78,6 @@
                      </font>
                      <HBox.margin>
                         <Insets bottom="60.0" left="120.0" right="30.0" top="60.0" />
-                     </HBox.margin>
-                  </MFXButton>
-                  <MFXButton fx:id="btnUpdate" buttonType="RAISED" depthLevel="LEVEL1" onAction="#handleUpdateEvent" text="Update">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets top="60.0" />
                      </HBox.margin>
                   </MFXButton>
                   <MFXButton fx:id="cancelBtn" buttonType="RAISED" depthLevel="LEVEL1" onAction="#handleCancelBtn" text="Cancel">

@@ -224,8 +224,10 @@ public class KoordinatorPageController extends BaseController implements Initial
         background.setBackground(showImageClass.setBackGroundImage(selectedEvent.getEventImage()));
 
         Button addCoordinatorButton = new Button("Add A Coordinator");
+        Button addTicket = new Button("Add A Ticket");
+        Button sellTicket = new Button("Sell A Ticket");
 
-        vboxEventInfo.getChildren().addAll(addCoordinatorButton);
+        vboxEventInfo.getChildren().addAll(addCoordinatorButton, addTicket , sellTicket);
         for (Label label : eventModel.handleSelectedEvent(selectedEvent)) {
             vboxEventInfo.getChildren().addAll(label);
         }
@@ -241,12 +243,30 @@ public class KoordinatorPageController extends BaseController implements Initial
                 controller.setUp(selectedEvent);
                 newStage.setScene(scene);
                 newStage.showAndWait();
-                setUp();
 
             }  catch (Exception e) {
                 throw new RuntimeException(e);
             }
         });
+
+        addTicket.setOnAction(event -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TicketMaker.fxml"));
+                Parent secondWindow = loader.load();
+                Stage newStage = new Stage();
+                newStage.setTitle("Create a ticket for | " + selectedEvent.getName());
+                Scene scene = new Scene(secondWindow);
+                newStage.setScene(scene);
+                newStage.showAndWait();
+
+            }  catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        sellTicket.setOnAction(event -> {
+        });
+
     }
 
     @FXML

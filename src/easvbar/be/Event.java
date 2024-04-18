@@ -10,8 +10,10 @@ public class Event {
     private int soldTickets;
     private String createdBy;
     private String eventImage;
+    private String eventDescription;
+    private String eventGuide;
 
-    public Event(int id, String name, String eventStart, String eventEnd, String location, String date, String createdBy, String eventImage) {
+    public Event(int id, String name, String eventStart, String eventEnd, String location, String date, String createdBy, String eventImage,String eventGuide, String eventDescription) {
         this.id = id;
         this.name = name;
         this.eventStart = eventStart;
@@ -20,6 +22,8 @@ public class Event {
         this.date = date;
         this.createdBy = createdBy;
         this.eventImage = eventImage;
+        this.eventGuide = eventGuide;
+        this.eventDescription = eventDescription;
     }
 
     public Event() {
@@ -96,6 +100,22 @@ public class Event {
 
     public void setEventImage(String eventImage) {
         this.eventImage = eventImage;
+    }
+
+    public String getEventDescription() {
+        return eventDescription;
+    }
+
+    public void setEventDescription(String eventDescription) {
+        this.eventDescription = eventDescription;
+    }
+
+    public String getEventGuide() {
+        return eventGuide;
+    }
+
+    public void setEventGuide(String eventGuide) {
+        this.eventGuide = eventGuide;
     }
 
     @Override

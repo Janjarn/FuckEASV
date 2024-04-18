@@ -36,9 +36,11 @@ public class EventsDAO_DB implements IEvent {
                 String date = rs.getString("EventDate");
                 String createdBy = rs.getString("CreatedBy");
                 String eventImage = rs.getString("PicturePath");
+                String guide = rs.getString("EventGuide");
+                String description = rs.getString("EventDescription");
 
 
-                Event event = new Event (id,name,eventStart,eventEnd,location,date,createdBy,eventImage);
+                Event event = new Event (id,name,eventStart,eventEnd,location,date,createdBy,eventImage,guide,description);
                 allEvents.add(event);
             }
             return allEvents;
@@ -51,7 +53,7 @@ public class EventsDAO_DB implements IEvent {
 
     public Event createEvent(Event event) throws Exception {
 
-        String sql = "INSERT INTO FuckEASVBar.dbo.Event (EventName, EventTimeStart, EventTimeEnd, Location, Eventdate, CreatedBy,PicturePath) VALUES (?,?,?,?,?,?,?);";
+        String sql = "INSERT INTO FuckEASVBar.dbo.Event (EventName, EventTimeStart, EventTimeEnd, Location, Eventdate, CreatedBy,PicturePath,EventGuide,EventDescription) VALUES (?,?,?,?,?,?,?,?,?);";
 
         try (Connection conn = databaseConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS))
@@ -64,6 +66,8 @@ public class EventsDAO_DB implements IEvent {
             stmt.setString(5,event.getDate());
             stmt.setString(6,event.getCreatedBy());
             stmt.setString(7,event.getEventImage());
+            stmt.setString(8,event.getEventGuide());
+            stmt.setString(9,event.getEventDescription());
 
             // Run the specified SQL Statement
             stmt.executeUpdate();
@@ -77,7 +81,9 @@ public class EventsDAO_DB implements IEvent {
             }
 
             // Create song object and send up the layers
-            Event createdEvent = new Event(id, event.getName(), event.getEventStart(), event.getEventEnd(), event.getLocation(), event.getDate(), event.getCreatedBy(), event.getEventImage());
+            Event createdEvent = new Event(id, event.getName(), event.getEventStart(), event.getEventEnd(),
+                    event.getLocation(), event.getDate(), event.getCreatedBy(), event.getEventImage(),
+                    event.getEventGuide(), event.getEventDescription());
 
             return createdEvent;
         }
@@ -109,7 +115,7 @@ public class EventsDAO_DB implements IEvent {
     public Event updateEvent (Event event) throws Exception {
         String sql = "UPDATE FuckEASVBar.dbo.event " +
                 "SET EventName = ?, EventDate = ?, EventTimeStart = ?, CreatedBy = ?, " +
-                "EventTimeEnd = ?, Location = ?, PicturePath = ? " +
+                "EventTimeEnd = ?, Location = ?, PicturePath = ?, EventGuide = ?, EventDescription = ?" +
                 "WHERE EventId = ?";
 
         try (Connection conn = databaseConnector.getConnection();
@@ -121,7 +127,9 @@ public class EventsDAO_DB implements IEvent {
             stmt.setString(5,event.getEventEnd());
             stmt.setString(6,event.getLocation());
             stmt.setString(7,event.getEventImage());
-            stmt.setInt(8, event.getId());
+            stmt.setString(8,event.getEventGuide());
+            stmt.setString(9,event.getEventDescription());
+            stmt.setInt(10, event.getId());
             stmt.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();

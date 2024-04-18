@@ -6,6 +6,7 @@ import easvbar.gui.helperclases.ShowImageClass;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
@@ -59,7 +60,8 @@ public class UpdateProfileController {
         }
     }
 
-    public void handleUploadPicture(ActionEvent actionEvent) {
+    @FXML
+    private void handleUploadPicture(ActionEvent actionEvent) {
         // Create a new FileChooser
         FileChooser fileChooser = new FileChooser();
 
@@ -117,11 +119,13 @@ public class UpdateProfileController {
         }
     }
 
-    public void handleCancel(ActionEvent actionEvent) {
+    @FXML
+    private void handleCancel(ActionEvent actionEvent) {
         btnCancel.getScene().getWindow().hide();
     }
 
-    public void handleDragDrop(DragEvent dragEvent) {
+    @FXML
+    private void handleDragDrop(DragEvent dragEvent) {
         Dragboard dragboard = dragEvent.getDragboard();
         if (dragboard.hasFiles()) {
             for (File file : dragboard.getFiles()) {
@@ -139,7 +143,8 @@ public class UpdateProfileController {
         }
     }
 
-    public void handleDragOver(DragEvent dragEvent) {
+    @FXML
+    private void handleDragOver(DragEvent dragEvent) {
         if (dragEvent.getGestureSource() != this) {
             dragEvent.acceptTransferModes(TransferMode.COPY_OR_MOVE);
         }

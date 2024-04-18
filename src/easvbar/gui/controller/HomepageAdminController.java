@@ -236,7 +236,6 @@ public class HomepageAdminController {
                 controller.setUp(events);
                 newStage.setScene(scene);
                 newStage.showAndWait();
-                setUp();
 
             }  catch (Exception e) {
                 throw new RuntimeException(e);

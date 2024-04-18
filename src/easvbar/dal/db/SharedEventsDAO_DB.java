@@ -39,8 +39,10 @@ public class SharedEventsDAO_DB implements ISharedEvent {
                 String date = rs.getString("EventDate");
                 String createdBy = rs.getString("CreatedBy");
                 String eventImage = rs.getString("PicturePath");
+                String guide = rs.getString("EventGuide");
+                String description = rs.getString("EventDescription");
 
-                Event sharedEvent = new Event(eventId, eventName, eventStart, eventEnd, location, date, createdBy, eventImage);
+                Event sharedEvent = new Event(eventId, eventName, eventStart, eventEnd, location, date, createdBy, eventImage,guide,description);
                 allSharedEvents.add(sharedEvent);
             }
             return allSharedEvents;

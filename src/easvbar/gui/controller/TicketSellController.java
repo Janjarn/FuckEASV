@@ -11,6 +11,9 @@ import javafx.scene.layout.AnchorPane;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class TicketSellController {
     @FXML
@@ -77,17 +80,47 @@ public class TicketSellController {
         imageBarcode.setImage(ticket.convertBase64ToImageBC(barcode));
 
         // Save ticket image to folder
-        saveTicketImage();
+        saveTicketImage(txtEventName.getText(),txtUserName.getText(),txtUserLastName.getText());
     }
 
     // Method to save ticket image to a folder
-    private void saveTicketImage() throws IOException {
+    private void saveTicketImage(String eventName, String userFirstName, String userLastName) throws IOException {
         try {
-            // Convert AnchorPane to image
-            File ticketFile = new File("resources/ticketsSold/ticket.png");
+            // Generate unique file name
+            String fileName = eventName + "_" + userFirstName + "_" + userLastName + ".png";
+
+            // Get the directory to save the image
+            Path directory = Paths.get("resources/ticketsSold");
+
+            // Generate unique file path
+            Path filePath = generateUniqueFilePath(directory, fileName);
+
+            // Convert AnchorPane to image and save
+            File ticketFile = filePath.toFile();
             ImageIO.write(SwingFXUtils.fromFXImage(background.snapshot(null, null), null), "png", ticketFile);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private Path generateUniqueFilePath(Path directory, String fileName) throws IOException {
+        // Check if the file already exists in the directory
+        Path filePath = directory.resolve(fileName);
+        if (!Files.exists(filePath)) {
+            return filePath; // File does not exist, return the original file path
+        }
+
+        // If the file already exists, append a number to the file name until a unique name is found
+        int count = 1;
+        String baseFileName = fileName.substring(0, fileName.lastIndexOf('.'));
+        String extension = fileName.substring(fileName.lastIndexOf('.'));
+        while (true) {
+            String numberedFileName = baseFileName + "_" + count + extension;
+            Path numberedFilePath = directory.resolve(numberedFileName);
+            if (!Files.exists(numberedFilePath)) {
+                return numberedFilePath; // Found a unique file path
+            }
+            count++;
         }
     }
 }

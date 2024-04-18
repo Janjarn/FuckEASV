@@ -92,7 +92,6 @@ public class TicketController extends BaseController implements Initializable {
                 txtUserLastName.getText());
 
         newStage.setScene(scene);
-        newStage.showAndWait();
     }
 
     public void handleCancelTicket() {

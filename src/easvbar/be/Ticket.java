@@ -19,9 +19,10 @@ public class Ticket {
     private boolean foodTicket;
     private boolean beerTicket;
     private boolean firstRow;
+    private int eventId;
 
     public Ticket(int ticketId, String qrCode, String barcode, boolean vipTicket, boolean foodTicket,
-                  boolean beerTicket, boolean firstRow) {
+                  boolean beerTicket, boolean firstRow, int eventId) {
         this.ticketId = ticketId;
         this.qrCode = qrCode;
         this.barcode = barcode;
@@ -29,6 +30,7 @@ public class Ticket {
         this.foodTicket = foodTicket;
         this.beerTicket = beerTicket;
         this.firstRow = firstRow;
+        this.eventId = eventId;
     }
 
     public Ticket(int ticketId, boolean vipTicket, boolean foodTicket,
@@ -43,6 +45,14 @@ public class Ticket {
     public Ticket() {
     }
 
+    public Ticket(int ticketId, boolean vipTicket, boolean foodTicket, boolean beerTicket, boolean firstRow, int eventId) {
+        this.ticketId = ticketId;
+        this.vipTicket = vipTicket;
+        this.foodTicket = foodTicket;
+        this.beerTicket = beerTicket;
+        this.firstRow = firstRow;
+        this.eventId = eventId;
+    }
 
 
     public int getTicketId() {
@@ -107,5 +117,13 @@ public class Ticket {
 
     public void setFirstRow(boolean firstRow) {
         this.firstRow = firstRow;
+    }
+
+    public int getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(int eventId) {
+        this.eventId = eventId;
     }
 }

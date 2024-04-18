@@ -5,6 +5,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
+import easvbar.be.Event;
 import easvbar.be.Ticket;
 import easvbar.bll.TicketManager;
 import javafx.collections.FXCollections;
@@ -66,11 +67,20 @@ public class TicketModel {
     }
 
 
-    public String generateQRCode(Ticket ticket) throws IOException {
+    public String generateQRCode(Ticket ticket, Event event, String userName,
+                                 String userLastname) throws IOException {
         String qrCode = null;
         try {
+            String qrData = "Ticket ID: " + ticket.getTicketId() +
+                    "\nEvent ID: " + event.getId() +
+                    "\nEvent Name: " + event.getName() +
+                    "\nEvent Location: " + event.getLocation() +
+                    "\nEvent Date: " + event.getDate() +
+                    "\nUser Name: " + userName +
+                    "\nUser Last Name: " + userLastname;
+
             QRCodeWriter qrCodeWriter = new QRCodeWriter();
-            BitMatrix bitMatrix = qrCodeWriter.encode("Ticket ID: " + ticket.getTicketId(), BarcodeFormat.QR_CODE, 200, 200);
+            BitMatrix bitMatrix = qrCodeWriter.encode(qrData, BarcodeFormat.QR_CODE, 200, 200);
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             MatrixToImageWriter.writeToStream(bitMatrix, "PNG", outputStream);
             qrCode = Base64.getEncoder().encodeToString(outputStream.toByteArray());
@@ -93,11 +103,20 @@ public class TicketModel {
     }
 
 
-    public String generateBarcode(Ticket ticket) throws IOException {
+    public String generateBarcode(Ticket ticket, Event event, String userName, String userLastname) throws IOException {
         String barcodeBase64 = null;
         try {
+            // Construct barcode data string
+            String barcodeData = "Ticket ID: " + ticket.getTicketId() +
+                    "\nEvent ID: " + event.getId() +
+                    "\nEvent Name: " + event.getName() +
+                    "\nEvent Location: " + event.getLocation() +
+                    "\nEvent Date: " + event.getDate() +
+                    "\nUser Name: " + userName +
+                    "\nUser Last Name: " + userLastname;
+
             // Create the barcode
-            Barcode barcode = BarcodeFactory.createCode128("Ticket ID: " + ticket.getTicketId());
+            Barcode barcode = BarcodeFactory.createCode128(barcodeData);
 
             // Scale the barcode
             barcode.setBarWidth(2);

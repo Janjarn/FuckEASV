@@ -74,7 +74,7 @@ public class TicketController extends BaseController implements Initializable {
         Stage stage = (Stage) createTicket.getScene().getWindow();
         stage.close();
         Ticket newTicket = new Ticket(-1, vipTicketSelected, foodTicketSelected,
-                beerTicketSelected, firstRowSelected);
+                beerTicketSelected, firstRowSelected,selectedEvent.getId());
         try {
             ticketModel.createTicket(newTicket);
         } catch (Exception e) {
@@ -86,10 +86,10 @@ public class TicketController extends BaseController implements Initializable {
         Stage newStage = new Stage();
         Scene scene = new Scene(secondWindow);
         TicketSellController controller = loader.getController();
-        controller.setTicket(newTicket);
+        controller.setTicketAndEvent(newTicket, selectedEvent);
         controller.fillTicketInformationAndGenerateImages(selectedEvent.getName(), selectedEvent.getLocation(),
                 selectedEvent.getDate(), selectedEvent.getEventStart(), selectedEvent.getEventEnd(), txtUserName.getText(),
-                txtUserLastName.getText());
+                txtUserLastName.getText(), selectedEvent.getId());
 
         newStage.setScene(scene);
     }

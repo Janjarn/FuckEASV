@@ -1,12 +1,14 @@
 package easvbar.gui.controller;
 
+import easvbar.be.Event;
 import easvbar.be.Ticket;
+import easvbar.gui.helperclases.ShowImageClass;
 import easvbar.gui.model.TicketModel;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.*;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -47,17 +49,21 @@ public class TicketSellController {
     private ImageView imageBarcode;
 
     private Ticket tickerSold = new Ticket();
+    private ShowImageClass showImageClass = new ShowImageClass();
+    private Event ticketEvent = new Event();
 
     private void setUp() {
 
     }
-    public void setTicket(Ticket ticket) {
+    public void setTicketAndEvent(Ticket ticket,Event event) {
         this.tickerSold = ticket;
+        this.ticketEvent = event;
     }
 
     // Method to fill ticket information and generate images
     public void fillTicketInformationAndGenerateImages(String eventName, String eventLocation,
-    String eventDate, String eventStart,String eventEnd, String userName,String userLastName) throws Exception {
+                                                       String eventDate, String eventStart, String eventEnd, String userName,
+                                                       String userLastName, int eventId) throws Exception {
 
         // Fill label information
         txtEventName.setText(eventName);
@@ -68,10 +74,21 @@ public class TicketSellController {
         txtUserName.setText(userName);
         txtUserLastName.setText(userLastName);
 
+        BackgroundSize backgroundSize = new BackgroundSize(1.0, 1.0, true, true, true, false);
+        BackgroundImage backgroundImage = new BackgroundImage(showImageClass.showImage(ticketEvent.getEventImage()),
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT, backgroundSize);
+
+        Background backgroundimage = new Background(backgroundImage);
+        background.setBackground(backgroundimage);
+
+
         // Generate QR code and barcode
         TicketModel ticket = new TicketModel();
-        String qrCode = ticket.generateQRCode(tickerSold);
-        String barcode = ticket.generateBarcode(tickerSold);
+
+        // Assuming tickerSold contains the ticket information
+        String qrCode = ticket.generateQRCode(tickerSold, ticketEvent, userName, userLastName);
+        String barcode = ticket.generateBarcode(tickerSold, ticketEvent, userName, userLastName);
 
         // Convert QR code string to image and set it to ImageView
         ImageQRCode.setImage(ticket.convertBase64ToImageQR(qrCode));
@@ -80,7 +97,7 @@ public class TicketSellController {
         imageBarcode.setImage(ticket.convertBase64ToImageBC(barcode));
 
         // Save ticket image to folder
-        saveTicketImage(txtEventName.getText(),txtUserName.getText(),txtUserLastName.getText());
+        saveTicketImage(eventName, userName, userLastName);
     }
 
     // Method to save ticket image to a folder

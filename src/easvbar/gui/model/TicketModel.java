@@ -82,7 +82,34 @@ public class TicketModel {
                     "\nEvent Location: " + event.getLocation() +
                     "\nEvent Date: " + event.getDate() +
                     "\nUser Name: " + userName +
-                    "\nUser Last Name: " + userLastname;
+                    "\nUser Last Name: " + userLastname +
+                    "\nVip Ticket: " + ticket.getVipTicket() +
+                    "\nFirst Row: " + ticket.getFirstRow() +
+                    "\nFood Ticket: " + ticket.getFoodTicket() +
+                    "\nBeer Ticket: " + ticket.getBeerTicket();
+
+            QRCodeWriter qrCodeWriter = new QRCodeWriter();
+            BitMatrix bitMatrix = qrCodeWriter.encode(qrData, BarcodeFormat.QR_CODE, 200, 200);
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            MatrixToImageWriter.writeToStream(bitMatrix, "PNG", outputStream);
+            qrCode = Base64.getEncoder().encodeToString(outputStream.toByteArray());
+        } catch (WriterException | IOException e) {
+            e.printStackTrace();
+        }
+        return qrCode;
+    }
+    public String generateQRCodeStandalone(Ticket ticket, Event event) throws IOException {
+        String qrCode = null;
+        try {
+            String qrData = "Ticket ID: " + ticket.getTicketId() +
+                    "\nEvent ID: " + event.getId() +
+                    "\nEvent Name: " + event.getName() +
+                    "\nEvent Location: " + event.getLocation() +
+                    "\nEvent Date: " + event.getDate() +
+                    "\nVip Ticket: " + ticket.getVipTicket() +
+                    "\nFirst Row: " + ticket.getFirstRow() +
+                    "\nFood Ticket: " + ticket.getFoodTicket() +
+                    "\nBeer Ticket: " + ticket.getBeerTicket();
 
             QRCodeWriter qrCodeWriter = new QRCodeWriter();
             BitMatrix bitMatrix = qrCodeWriter.encode(qrData, BarcodeFormat.QR_CODE, 200, 200);
@@ -118,7 +145,45 @@ public class TicketModel {
                     "\nEvent Location: " + event.getLocation() +
                     "\nEvent Date: " + event.getDate() +
                     "\nUser Name: " + userName +
-                    "\nUser Last Name: " + userLastname;
+                    "\nUser Last Name: " + userLastname +
+                    "\nVip Ticket: " + ticket.getVipTicket() +
+                    "\nFirst Row: " + ticket.getFirstRow() +
+                    "\nFood Ticket: " + ticket.getFoodTicket() +
+                    "\nBeer Ticket: " + ticket.getBeerTicket();
+
+            // Create the barcode
+            Barcode barcode = BarcodeFactory.createCode128(barcodeData);
+
+            // Scale the barcode
+            barcode.setBarWidth(2);
+            barcode.setBarHeight(50);
+
+            // Convert the barcode to image
+            BufferedImage bufferedImage = BarcodeImageHandler.getImage(barcode);
+
+            // Convert the image to Base64 string
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            ImageIO.write(bufferedImage, "png", outputStream);
+            barcodeBase64 = Base64.getEncoder().encodeToString(outputStream.toByteArray());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return barcodeBase64;
+    }
+
+    public String generateBarcodeStandalone(Ticket ticket, Event event) throws IOException {
+        String barcodeBase64 = null;
+        try {
+            // Construct barcode data string
+            String barcodeData = "Ticket ID: " + ticket.getTicketId() +
+                    "\nEvent ID: " + event.getId() +
+                    "\nEvent Name: " + event.getName() +
+                    "\nEvent Location: " + event.getLocation() +
+                    "\nEvent Date: " + event.getDate() +
+                    "\nVip Ticket: " + ticket.getVipTicket() +
+                    "\nFirst Row: " + ticket.getFirstRow() +
+                    "\nFood Ticket: " + ticket.getFoodTicket() +
+                    "\nBeer Ticket: " + ticket.getBeerTicket();
 
             // Create the barcode
             Barcode barcode = BarcodeFactory.createCode128(barcodeData);

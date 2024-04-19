@@ -12,7 +12,6 @@ import java.util.Base64;
 
 public class Ticket {
     private int ticketId;
-    private String ticketType;
     private String qrCode;
     private String barcode;
     private boolean vipTicket;
@@ -54,6 +53,12 @@ public class Ticket {
         this.eventId = eventId;
     }
 
+    public Ticket(int ticketId, String qrCode, String barcode) {
+        this.ticketId = ticketId;
+        this.barcode = barcode;
+        this.qrCode = qrCode;
+    }
+
 
     public int getTicketId() {
         return ticketId;
@@ -61,14 +66,6 @@ public class Ticket {
 
     public void setTicketId(int ticketId) {
         this.ticketId = ticketId;
-    }
-
-    public String getTicketType() {
-        return ticketType;
-    }
-
-    public void setTicketType(String ticketType) {
-        this.ticketType = ticketType;
     }
 
     public String getQrCode() {

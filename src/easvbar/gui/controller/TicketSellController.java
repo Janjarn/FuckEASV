@@ -61,16 +61,15 @@ public class TicketSellController {
     }
 
     // Method to fill ticket information and generate images
-    public void fillTicketInformationAndGenerateImages(String eventName, String eventLocation,
-                                                       String eventDate, String eventStart, String eventEnd, String userName,
-                                                       String userLastName, int eventId) throws Exception {
+    public void fillTicketInformationAndGenerateImages(Event event, String userName,
+                                                       String userLastName, Ticket ticket) throws Exception {
 
         // Fill label information
-        txtEventName.setText(eventName);
-        txtEventLocation.setText(eventLocation);
-        txtEventDate.setText(eventDate);
-        txtEventStart.setText(eventStart);
-        txtEventEnd.setText(eventEnd);
+        txtEventName.setText(event.getName());
+        txtEventLocation.setText(event.getLocation());
+        txtEventDate.setText(event.getDate());
+        txtEventStart.setText(event.getEventStart());
+        txtEventEnd.setText(event.getEventEnd());
         txtUserName.setText(userName);
         txtUserLastName.setText(userLastName);
 
@@ -84,20 +83,22 @@ public class TicketSellController {
 
 
         // Generate QR code and barcode
-        TicketModel ticket = new TicketModel();
+        TicketModel ticketModel = new TicketModel();
 
         // Assuming tickerSold contains the ticket information
-        String qrCode = ticket.generateQRCode(tickerSold, ticketEvent, userName, userLastName);
-        String barcode = ticket.generateBarcode(tickerSold, ticketEvent, userName, userLastName);
+        String qrCode = ticketModel.generateQRCode(tickerSold, ticketEvent, userName, userLastName);
+        String barcode = ticketModel.generateBarcode(tickerSold, ticketEvent, userName, userLastName);
 
         // Convert QR code string to image and set it to ImageView
-        ImageQRCode.setImage(ticket.convertBase64ToImageQR(qrCode));
+        ImageQRCode.setImage(ticketModel.convertBase64ToImageQR(qrCode));
 
         // Convert barcode string to image and set it to ImageView
-        imageBarcode.setImage(ticket.convertBase64ToImageBC(barcode));
+        imageBarcode.setImage(ticketModel.convertBase64ToImageBC(barcode));
 
         // Save ticket image to folder
-        saveTicketImage(eventName, userName, userLastName);
+        saveTicketImage(event.getName(), userName, userLastName);
+        Ticket updateTicket = new Ticket(ticket.getTicketId(), qrCode,barcode);
+        ticketModel.updateTicket(updateTicket);
     }
 
     // Method to save ticket image to a folder
@@ -138,6 +139,63 @@ public class TicketSellController {
                 return numberedFilePath; // Found a unique file path
             }
             count++;
+        }
+    }
+
+    public void fillTicketInformationAndGenerateImagesStandalone(Ticket ticket, Event event) throws Exception {
+        // Fill label information
+        txtEventName.setText("");
+        txtEventLocation.setText("");
+        txtEventDate.setText("");
+        txtEventStart.setText("");
+        txtEventEnd.setText("");
+        txtUserName.setText("");
+        txtUserLastName.setText("");
+
+        BackgroundSize backgroundSize = new BackgroundSize(1.0, 1.0, true, true, true, false);
+        BackgroundImage backgroundImage = new BackgroundImage(showImageClass.showImage(ticketEvent.getEventImage()),
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT, backgroundSize);
+
+        Background backgroundimage = new Background(backgroundImage);
+        background.setBackground(backgroundimage);
+
+
+        // Generate QR code and barcode
+        TicketModel ticketModel = new TicketModel();
+
+        // Assuming tickerSold contains the ticket information
+        String qrCode = ticketModel.generateQRCodeStandalone(tickerSold, ticketEvent);
+        String barcode = ticketModel.generateBarcodeStandalone(tickerSold, ticketEvent);
+
+        // Convert QR code string to image and set it to ImageView
+        ImageQRCode.setImage(ticketModel.convertBase64ToImageQR(qrCode));
+
+        // Convert barcode string to image and set it to ImageView
+        imageBarcode.setImage(ticketModel.convertBase64ToImageBC(barcode));
+
+        // Save ticket image to folder
+        saveTicketImage(ticket, event);
+        Ticket updateTicket = new Ticket(ticket.getTicketId(), qrCode,barcode);
+        ticketModel.updateTicket(updateTicket);
+    }
+
+    private void saveTicketImage(Ticket ticket, Event event) {
+        try {
+            // Generate unique file name
+            String fileName = event.getName() + "_" + ticket.getBeerTicket() + "_" + ticket.getVipTicket()+ "_" + ticket.getFirstRow()+ "_" + ticket.getFoodTicket() + ".png";
+
+            // Get the directory to save the image
+            Path directory = Paths.get("resources/standalonetickets");
+
+            // Generate unique file path
+            Path filePath = generateUniqueFilePath(directory, fileName);
+
+            // Convert AnchorPane to image and save
+            File ticketFile = filePath.toFile();
+            ImageIO.write(SwingFXUtils.fromFXImage(background.snapshot(null, null), null), "png", ticketFile);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

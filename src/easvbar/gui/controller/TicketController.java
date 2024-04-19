@@ -11,6 +11,7 @@ import io.github.palexdev.materialfx.controls.MFXCheckbox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -26,6 +27,8 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class TicketController extends BaseController implements Initializable {
+    @FXML
+    private MFXButton btnCreateStandalone;
     @FXML
     private ListView listUsers;
     @FXML
@@ -116,9 +119,8 @@ public class TicketController extends BaseController implements Initializable {
                 Scene scene = new Scene(secondWindow);
                 TicketSellController controller = loader.getController();
                 controller.setTicketAndEvent(ticket, selectedEvent);
-                controller.fillTicketInformationAndGenerateImages(selectedEvent.getName(), selectedEvent.getLocation(),
-                        selectedEvent.getDate(), selectedEvent.getEventStart(), selectedEvent.getEventEnd(), txtUserName.getText(),
-                        txtUserLastName.getText(), selectedEvent.getId());
+                controller.fillTicketInformationAndGenerateImages(selectedEvent, txtUserName.getText(),
+                        txtUserLastName.getText(), ticket);
 
                 newStage.setScene(scene);
             } catch (Exception e) {
@@ -143,5 +145,34 @@ public class TicketController extends BaseController implements Initializable {
         User user = (User) listUsers.getSelectionModel().getSelectedItem();
         txtUserName.setText(user.getName());
         txtUserLastName.setText(user.getLastname());
+    }
+
+    @FXML
+    private void handleCreateStandaloneTicket(ActionEvent actionEvent) {
+        boolean vipTicketSelected = vipTicket.isSelected();
+        boolean foodTicketSelected = foodTicket.isSelected();
+        boolean beerTicketSelected = beerTicket.isSelected();
+        boolean firstRowSelected = firstRow.isSelected();
+
+        Stage stage = (Stage) btnCreateStandalone.getScene().getWindow();
+        stage.close();
+        Ticket newTicket = new Ticket(-1, vipTicketSelected, foodTicketSelected,
+                beerTicketSelected, firstRowSelected, selectedEvent.getId());
+
+
+        try {
+            Ticket ticket = ticketModel.createTicketWithReturn(newTicket);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TicketSeller.fxml"));
+            Parent secondWindow = loader.load();
+            Stage newStage = new Stage();
+            Scene scene = new Scene(secondWindow);
+            TicketSellController controller = loader.getController();
+            controller.setTicketAndEvent(ticket, selectedEvent);
+            controller.fillTicketInformationAndGenerateImagesStandalone(ticket,selectedEvent);
+
+            newStage.setScene(scene);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -106,15 +106,14 @@ public class TicketDAO_DB implements ITicket {
 
     public Ticket updateTicket(Ticket ticket) throws Exception {
         String sql = "UPDATE FuckEASVBar.dbo.Ticket " +
-                "SET TicketType = ?, QrCode = ?, Barcode = ? " +
+                "SET QrCode = ?, Barcode = ? " +
                 "WHERE TicketId = ?";
 
         try (Connection conn = databaseConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1,ticket.getTicketType());
-            stmt.setString(2,ticket.getQrCode());
-            stmt.setString(3,ticket.getBarcode());
-            stmt.setInt(4, ticket.getTicketId());
+            stmt.setString(1,ticket.getQrCode());
+            stmt.setString(2,ticket.getBarcode());
+            stmt.setInt(3, ticket.getTicketId());
             stmt.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();

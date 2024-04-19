@@ -190,7 +190,7 @@ public class TicketController extends BaseController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     // Reset the button text after 3 seconds
-                    btnCreateStandalone.setText("Normal Text Here");
+                    btnCreateStandalone.setText("Create Standalone Ticket");
                 }
             });
 

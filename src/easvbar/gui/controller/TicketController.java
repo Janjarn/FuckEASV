@@ -9,9 +9,12 @@ import easvbar.gui.model.UserModel;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXCheckbox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,6 +23,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -153,26 +157,52 @@ public class TicketController extends BaseController implements Initializable {
         boolean foodTicketSelected = foodTicket.isSelected();
         boolean beerTicketSelected = beerTicket.isSelected();
         boolean firstRowSelected = firstRow.isSelected();
+        if (firstRowSelected || beerTicketSelected || foodTicketSelected || vipTicketSelected) {
 
-        Stage stage = (Stage) btnCreateStandalone.getScene().getWindow();
-        stage.close();
-        Ticket newTicket = new Ticket(-1, vipTicketSelected, foodTicketSelected,
-                beerTicketSelected, firstRowSelected, selectedEvent.getId());
+            Stage stage = (Stage) btnCreateStandalone.getScene().getWindow();
+            stage.close();
+            Ticket newTicket = new Ticket(-1, vipTicketSelected, foodTicketSelected,
+                    beerTicketSelected, firstRowSelected, selectedEvent.getId());
 
+            try {
+                Ticket ticket = ticketModel.createTicketWithReturn(newTicket);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TicketSeller.fxml"));
+                Parent secondWindow = loader.load();
+                Stage newStage = new Stage();
+                Scene scene = new Scene(secondWindow);
+                TicketSellController controller = loader.getController();
+                controller.setTicketAndEvent(ticket, selectedEvent);
+                controller.fillTicketInformationAndGenerateImagesStandalone(ticket, selectedEvent);
 
-        try {
-            Ticket ticket = ticketModel.createTicketWithReturn(newTicket);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TicketSeller.fxml"));
-            Parent secondWindow = loader.load();
-            Stage newStage = new Stage();
-            Scene scene = new Scene(secondWindow);
-            TicketSellController controller = loader.getController();
-            controller.setTicketAndEvent(ticket, selectedEvent);
-            controller.fillTicketInformationAndGenerateImagesStandalone(ticket,selectedEvent);
+                newStage.setScene(scene);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            // Set the button text
+            btnCreateStandalone.setText("Please select which kind of ticket it is");
 
-            newStage.setScene(scene);
-        } catch (Exception e) {
-            e.printStackTrace();
+            // Create a Timeline object
+            Timeline timer = new Timeline();
+
+            // Create a KeyFrame that will execute after 3 seconds
+            KeyFrame keyFrame = new KeyFrame(Duration.seconds(3), new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    // Reset the button text after 3 seconds
+                    btnCreateStandalone.setText("Normal Text Here");
+                }
+            });
+
+            // Add the KeyFrame to the Timeline
+            timer.getKeyFrames().add(keyFrame);
+
+            // Start the Timeline
+            timer.play();
+            /**
+             *
+             */
         }
     }
+
 }
